@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 21-11-2017 a las 20:04:33
+-- Tiempo de generación: 23-11-2017 a las 17:02:06
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -74,8 +74,7 @@ CREATE TABLE `Opcion` (
 
 CREATE TABLE `Respuestas` (
   `ID_Respuestas` int(5) NOT NULL,
-  `ID_Opcion` int(5) NOT NULL,
-  `Descripcion` varchar(255) NOT NULL
+  `ID_Opcion` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -144,6 +143,35 @@ ALTER TABLE `Usuario`
   ADD PRIMARY KEY (`ID_Usuario`);
 
 --
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Consulta`
+--
+ALTER TABLE `Consulta`
+  MODIFY `ID_Consulta` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `Invitacion`
+--
+ALTER TABLE `Invitacion`
+  MODIFY `ID_Invitacion` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Opcion`
+--
+ALTER TABLE `Opcion`
+  MODIFY `ID_Opcion` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Respuestas`
+--
+ALTER TABLE `Respuestas`
+  MODIFY `ID_Respuestas` int(5) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Usuario`
+--
+ALTER TABLE `Usuario`
+  MODIFY `ID_Usuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -158,19 +186,19 @@ ALTER TABLE `Consulta`
 --
 ALTER TABLE `Invitacion`
   ADD CONSTRAINT `FK_ID_Consulta_Invitacion` FOREIGN KEY (`ID_Consulta`) REFERENCES `Consulta` (`ID_Consulta`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_ID_Usuario_Invitacion` FOREIGN KEY (`ID_Usuario`) REFERENCES `Usuario` (`ID_Usuario`);
+  ADD CONSTRAINT `FK_ID_Usuario_Invitacion` FOREIGN KEY (`ID_Usuario`) REFERENCES `Usuario` (`ID_Usuario`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Opcion`
 --
 ALTER TABLE `Opcion`
-  ADD CONSTRAINT `FK_ID_Consulta_Opcion` FOREIGN KEY (`ID_Consulta`) REFERENCES `Consulta` (`ID_Consulta`);
+  ADD CONSTRAINT `FK_ID_Consulta_Opcion` FOREIGN KEY (`ID_Consulta`) REFERENCES `Consulta` (`ID_Consulta`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Respuestas`
 --
 ALTER TABLE `Respuestas`
-  ADD CONSTRAINT `FK_ID_Opcion_Respuestas` FOREIGN KEY (`ID_Opcion`) REFERENCES `Opcion` (`ID_Opcion`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_ID_Opcion_Respuestas` FOREIGN KEY (`ID_Opcion`) REFERENCES `Opcion` (`ID_Opcion`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
