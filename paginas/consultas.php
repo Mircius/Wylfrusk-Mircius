@@ -58,6 +58,29 @@
 	</style>
 </head>
 <body>
+	<?php
+function enviarFormulario($consulta,$id_user,$preguntaFechaInicio,$preguntaFechaFinal,$con){
+	$qstr= "INSERT INTO `Consulta`(`Descripcion Pregunta`, `ID_Usuario`, `Fecha Inicio`, `Fecha Final`)  VALUES ('$consulta','$id_user','$preguntaFechaInicio','$preguntaFechaFinal' )"
+	$sql=$con->prepare($qstr);
+	$sql->execute();
+	$e= $sql->errorInfo();
+	if ($e[0]!='00000') {
+		die("Error accedint a dades: " . $e[2]);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+	?>
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
@@ -84,14 +107,15 @@
 				<form action="" method="POST" class="formu">
 
 					<p>Escriba la pregunta: </p>
-						<textarea name="pregunta" rows="4" cols="50"></textarea>
+						<textarea name="consulta" rows="4" cols="50"></textarea>
 
-						<p>Introduce la fecha: <input type="date" name="preguntaFecha"></p>
+						<p>Introduce la fecha de inicio: <input type="date" name="preguntaFechaInicio"></p>
+						<p>Introduce la fecha final: <input type="date" name="preguntaFechaFinal"></p>
 						<br>
 						<p>Respuesta: <input type="text" name="respuesta"><input type="submit" value="Agregar respuesta"></p>
 
 						<input type="submit" value="Enviar">
-				</form>>
+				</form>
 			</div>
 		</div>
 	</section>
