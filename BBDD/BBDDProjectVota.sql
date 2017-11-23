@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-11-2017 a las 17:02:06
+-- Tiempo de generación: 23-11-2017 a las 20:19:52
 -- Versión del servidor: 5.7.20-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -88,7 +88,7 @@ CREATE TABLE `Usuario` (
   `Nombre` varchar(15) DEFAULT NULL,
   `Apellido` varchar(25) DEFAULT NULL,
   `Usuario` varchar(25) NOT NULL,
-  `Contraseña` varchar(25) NOT NULL,
+  `Contrasena` varchar(25) NOT NULL,
   `Email` varchar(35) NOT NULL,
   `Administrador` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -97,7 +97,7 @@ CREATE TABLE `Usuario` (
 -- Volcado de datos para la tabla `Usuario`
 --
 
-INSERT INTO `Usuario` (`ID_Usuario`, `Nombre`, `Apellido`, `Usuario`, `Contraseña`, `Email`, `Administrador`) VALUES
+INSERT INTO `Usuario` (`ID_Usuario`, `Nombre`, `Apellido`, `Usuario`, `Contrasena`, `Email`, `Administrador`) VALUES
 (1, 'José', 'González Castillo', 'JotaGonzalez', '123456', 'jgonzalezc.crn@artsgrafiques.org', 42),
 (2, 'Sergi', 'Coma Corcuera', 'Scoma', '123456', 'scomacorcuera@iesesteveterradas.cat', 42),
 (3, 'Alvaro', 'Delgado Rioja', 'Adelgado', '654321', 'adelagadorioja@gmail.com', 0);
