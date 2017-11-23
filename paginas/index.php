@@ -114,35 +114,48 @@ form.login div input[type="submit"] {
 <body>
 	<?php
 session_start();
-include_once "conexion.php";
+try{
+ 	$hostname = "localhost";
+    $dbname = "BBDDProjectVota";
+    $username = "root";
+    $pw = "AWS21A2S";
+    $con = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
+  } catch (PDOException $e) {
+    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
+    exit;
+  }
 
-function verificar_login($user,$password,$con,&$result) {
-    $sql = "SELECT * FROM usuario WHERE usuario = '$user' and contraseña = '$password'";
-    $rec = mysqli_query($con,$sql);
-    $count = 0;
-
-    while($row = mysqli_fetch_object($rec))
-    {	
-        $count++;
-        $result = $row;
-    }
-
-    if($count == 1)
-    {
-        return 1;
-    }
-
-    else
-    {
-        return 0;
-    }
+function verificar_login($user,$password,$con) {
+	$qstr = "SELECT * FROM Usuario WHERE Usuario = '$user' and Contrasena = '$password'";
+	$query = $con->prepare( $qstr );
+  	$query->execute();
+  	$row = $query->fetch();
+  	$count = 0;
+  	$e= $query->errorInfo();
+	if ($e[0]!='00000') {
+		die("Error accedint a dades: " . $e[2]);
+	}
+	while ($row) {
+		if ($row['usuario'] = $user){
+			if ($row['password'] = $password){
+				$count++;
+				$result=$row;
+			}
+		}
+		$row = $query->fetch();
+	}
+	if ($count == 1){
+		return 1;
+	}
+	else{
+		return 0;
+	}
 }
-
 if(!isset($_SESSION['userid']))
 {
     if(isset($_POST['login']))
     {
-        if(verificar_login($_POST['user'],$_POST['password'],$con,$result) == 1)
+        if(verificar_login($_POST['user'],$_POST['password'],$con) == 1)
         {
             $_SESSION['userid'] = $result->idusuario;
             header("location:template.html");
