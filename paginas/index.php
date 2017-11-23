@@ -114,17 +114,7 @@ form.login div input[type="submit"] {
 <body>
 	<?php
 session_start();
-try{
- 	$hostname = "localhost";
-    $dbname = "BBDDProjectVota";
-    $username = "root";
-    $pw = "AWS21A2S";
-    $con = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
-  } catch (PDOException $e) {
-    echo "Failed to get DB handle: " . $e->getMessage() . "\n";
-    exit;
-  }
-
+include_once('conexion.php');
 function verificar_login($user,$password,$con) {
 	$qstr = "SELECT * FROM Usuario WHERE Usuario = '$user' and Contrasena = '$password'";
 	$query = $con->prepare( $qstr );
@@ -136,10 +126,11 @@ function verificar_login($user,$password,$con) {
 		die("Error accedint a dades: " . $e[2]);
 	}
 	while ($row) {
-		if ($row['usuario'] = $user){
-			if ($row['password'] = $password){
+		if ($row['Usuario'] == $user){
+			if ($row['Contrasena'] == $password){
 				$count++;
-				$result=$row;
+				$GLOBALS['result']=$row;
+				echo 'hola';
 			}
 		}
 		$row = $query->fetch();
@@ -156,9 +147,11 @@ if(!isset($_SESSION['userid']))
     if(isset($_POST['login']))
     {
         if(verificar_login($_POST['user'],$_POST['password'],$con) == 1)
-        {
-            $_SESSION['userid'] = $result->idusuario;
-            header("location:template.html");
+        {	echo $GLOBALS['result']['ID_Usuario'];
+            $_SESSION['userid'] = $GLOBALS['result']['ID_Usuario'];
+            $_SESSION['user'] = $_POST['user'];
+			$_SESSION['admin'] = $GLOBALS['result']['Administrador'];
+            header("location:lista-preguntas.php");
         }
         else
         {
