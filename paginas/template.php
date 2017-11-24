@@ -134,12 +134,6 @@
 		}
 
 	</style>
-	<script>
-		function onClickedIrAVotacionesConId(e){
-			var id = e.id;
-			window.location.href = "votaciones.php?id="+id;
-		}
-	</script>
 </head>
 <body>
 	<?php 
@@ -149,15 +143,15 @@
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-home"></i>  Home</a>
+				<a href="index.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			
 			<div class="navbar-option-dos">
@@ -173,30 +167,11 @@
 		</div>
 	</section>
 	<section class="container">
+		<div class="main-container">
 			<div class="workin">
-				<table class="table-fill">
-					<tr>
-						<th>Descripción pregunta</th>
-						<th>Fecha inicio</th>
-						<th>Fecha final</th>
-					</tr>
-					<?php 
-						
-						$qstr = "SELECT * FROM Consulta";
-						$query = $con->prepare( $qstr );
-						$query->execute();
-						$row = $query->fetch();
-						while ($row) {
-							echo '<tr onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">';
-							echo '<td>'.$row['Desc_Pregunta'].'</td>';
-							echo '<td>'.$row['F_Inicio'].'</td>';
-							echo '<td>'.$row['F_Final'].'</td>';
-							echo '</tr>';
-							$row = $query->fetch();
-						}
-					?>
-				</table>
+
 			</div>
+		</div>
 	</section>
 	<section class="footer">
 		<div class="footer-container">

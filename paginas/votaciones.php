@@ -76,70 +76,8 @@
 			border-right: 1px solid rgba(170,170,170,0.9);
 			height: 2.5em;
 		}
-		.table-fill {
-		  border-radius:3px;
-		  border-collapse: collapse;
-		  height: 1em;
-		  margin: auto;
-		  margin-top: 20px;
-		  max-width: 50em;
-		  padding:5px;
-		  width: 100%;
-		  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-
-		}
-		 
-		th {
-		  color:#D5DDE5;;
-		  background:#1b1e24;
-		  border-bottom:4px solid #9ea7af;
-		  border-right: 1px solid #343a45;
-		  font-size:1.5em;
-		  padding:24px;
-		  text-align:center;
-		}		  
-		tr {
-		  border-top: 1px solid #C1C3D1;
-		  border-bottom-: 1px solid #C1C3D1;
-		  color:#666B85;
-		  font-size:1em;
-		}
-		tr:hover td {
-		  background:#4E5066;
-		  color:#FFFFFF;
-		}
-		
-		 
-		tr:nth-child(odd) td {
-		  background:#EBEBEB;
-		}
-		 
-		tr:nth-child(odd):hover td {
-		  background:#4E5066;
-		}		 
-		td {
-		  background:#FFFFFF;
-		  padding:20px;
-		  text-align:left;
-		  vertical-align:middle;
-		  font-size:1em;
-		  border-right: 1px solid #C1C3D1;
-		}
-		th.text-left {
-		  text-align: left;
-		}
-
-		td.text-left {
-		  text-align: left;
-		}
 
 	</style>
-	<script>
-		function onClickedIrAVotacionesConId(e){
-			var id = e.id;
-			window.location.href = "votaciones.php?id="+id;
-		}
-	</script>
 </head>
 <body>
 	<?php 
@@ -149,15 +87,15 @@
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-home"></i>  Home</a>
+				<a href="index.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			
 			<div class="navbar-option-dos">
@@ -173,30 +111,52 @@
 		</div>
 	</section>
 	<section class="container">
+		<div class="main-container">
 			<div class="workin">
-				<table class="table-fill">
-					<tr>
-						<th>Descripción pregunta</th>
-						<th>Fecha inicio</th>
-						<th>Fecha final</th>
-					</tr>
-					<?php 
-						
-						$qstr = "SELECT * FROM Consulta";
-						$query = $con->prepare( $qstr );
-						$query->execute();
-						$row = $query->fetch();
-						while ($row) {
-							echo '<tr onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">';
-							echo '<td>'.$row['Desc_Pregunta'].'</td>';
-							echo '<td>'.$row['F_Inicio'].'</td>';
-							echo '<td>'.$row['F_Final'].'</td>';
-							echo '</tr>';
-							$row = $query->fetch();
-						}
-					?>
-				</table>
+				<?php
+				$id = $_GET['id'];
+				$qstr = "SELECT * FROM Consulta WHERE ID_Consulta = '$id'";
+				$query = $con->prepare( $qstr );
+				$query->execute();
+				$row = $query->fetch();
+				while ($row) {
+					$consultaid = $row['ID_Consulta'];
+					$consultadesc = $row['Desc_Pregunta'];
+					$consultausuario = $row['ID_Usuario'];
+					$consultafechainicio = $row['F_Inicio'];
+					$consultafechafinal = $row['F_Final'];
+					$row = $query->fetch();
+				}
+				echo "<h1>".$consultadesc."</h1>";
+				?>
+				<?php
+				$qstr = "SELECT * FROM Opcion WHERE ID_Consulta = '$id'";
+				$query = $con->prepare( $qstr );
+				$query->execute();
+				$row = $query->fetch();
+				while ($row) {
+					$consultaidopcion = $row['ID_Opcion'];
+					$consultadescripcion = $row['Descripcion'];
+
+
+					echo $consultadescripcion;
+					echo $consultaidopcion;
+					$row = $query->fetch();
+				}
+				?>
+			<div >
+				
 			</div>
+				<!-- <?php
+				$qstr = "INSERT INTO `Votaciones`(`ID_Opcion`) VALUES ($ID_)";
+				$query = $con->prepare( $qstr );
+				$query->execute();
+				if ($e[0]!='00000') {
+					die("Error accedint a dades: " . $e[2]);
+				}
+				?> -->
+			</div>
+		</div>
 	</section>
 	<section class="footer">
 		<div class="footer-container">
