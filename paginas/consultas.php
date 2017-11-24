@@ -40,12 +40,21 @@
   			box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
   			border-radius: 0.5em;
 		}
-		.navbar-option{
+	.navbar-option{
 			margin-top: 6px;
 			float: left;
 			padding: 0.5em;
 		}
+		.navbar-option-dos{
+			margin-top: 6px;
+			float: right;
+			padding: 0.5em;
+		}
 		.navbar-option a{
+			text-decoration: none;
+			color: rgba(50,50,50,0.9);
+		}
+		.navbar-option-dos a{
 			text-decoration: none;
 			color: rgba(50,50,50,0.9);
 		}
@@ -55,50 +64,85 @@
 			border-right: 1px solid rgba(170,170,170,0.9);
 			height: 2.5em;
 		}
+		.headerDivider-dos {
+			margin-top: 4px;
+			float:right;
+			border-right: 1px solid rgba(170,170,170,0.9);
+			height: 2.5em;
+		}
 	</style>
 </head>
 <body>
 	<?php
-function enviarFormulario($consulta,$id_user,$preguntaFechaInicio,$preguntaFechaFinal,$con){
-	$qstr= "INSERT INTO `Consulta`(`Descripcion Pregunta`, `ID_Usuario`, `Fecha Inicio`, `Fecha Final`)  VALUES ('$consulta','$id_user','$preguntaFechaInicio','$preguntaFechaFinal' )"
-	$sql=$con->prepare($qstr);
-	$sql->execute();
-	$e= $sql->errorInfo();
+		session_start();
+		include_once ("conexion.php");
+		$userid = $_SESSION['userid'];
+
+function enviarFormulario($consulta,$userid,$preguntaFechaInicio,$preguntaFechaFinal,$con){
+	$qstr= "INSERT INTO `Consulta`(`Desc_Pregunta`, `ID_Usuario`, `F_Inicio`, `F_Final`)  VALUES ('$consulta','$userid','$preguntaFechaInicio','$preguntaFechaFinal' )";
+	$query=$con->prepare($qstr);
+	$query->execute();
+	$e= $query->errorInfo();
+	$idConsulta = $con->lastInsertId();
 	if ($e[0]!='00000') {
 		die("Error accedint a dades: " . $e[2]);
 	}
+	return $idConsulta;
+}
+function enviarFormularioRespuestas($idConsulta,$respuesta,$con){
+	$qstr= "INSERT INTO `Opcion`(`ID_Consulta`, `Descripcion`) VALUES ('$idConsulta','$respuesta')";
+	$query=$con->prepare($qstr);
+	$query->execute();
+	$e= $query->errorInfo();
+	if ($e[0]!='00000') {
+		die("Error accedint a dades: " . $e[2]);
+	}
+	return $idConsulta;
+
 }
 
 
+if(isset($_POST['Enviar'])){
+
+		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['preguntaFechaInicio'],$_POST['preguntaFechaFinal'],$con);
+
+		enviarFormularioRespuestas($idConsulta,$_POST['respuesta'],$con);
+	
 
 
 
+			
 
+	
 
-
-
-
-
+}
 
 	?>
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-user"></i>  Home</a>
+				<a href=""><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-user"></i>  Pregunta</a>
+				<a href=""><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-user"></i>  Huevasohueavsoisbdfnsdf</a>
+				<a href=""><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
-			<div class="headerDivider"></div>
-			<div class="navbar-option">
-				<a href=""><i class="fa fa-user"></i>  Usuario</a>
-				
+			
+			<div class="navbar-option-dos">
+				<a href="logout.php"><i class="fa fa-window-close"></i>   Log out</a>
 			</div>
+			<div class="headerDivider-dos"></div>
+			<div class="navbar-option-dos">
+				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
+				if (isset($_SESSION['user'])){
+					echo $_SESSION['user'];
+				}; ?></a>
+			</div>
+
 		</div>
 	</section>
 	<section class="container">
@@ -112,9 +156,9 @@ function enviarFormulario($consulta,$id_user,$preguntaFechaInicio,$preguntaFecha
 						<p>Introduce la fecha de inicio: <input type="date" name="preguntaFechaInicio"></p>
 						<p>Introduce la fecha final: <input type="date" name="preguntaFechaFinal"></p>
 						<br>
-						<p>Respuesta: <input type="text" name="respuesta"><input type="submit" value="Agregar respuesta"></p>
-
-						<input type="submit" value="Enviar">
+						<p>Respuesta: <input type="text" name="respuesta"></p>
+						<br>
+						<input type="submit" value="Enviar" name="Enviar">
 				</form>
 			</div>
 		</div>
