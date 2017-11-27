@@ -139,6 +139,7 @@ if(isset($_POST['Enviar'])){
 	   createFechaInicio(form);
 	   createFechaFinal(form);
 	   createButtonRespuesta(form,count);
+	   borrarCrearFormulario();
 
 
 	}
@@ -239,7 +240,7 @@ if(isset($_POST['Enviar'])){
 		
     	count = 1;
     	BorrarButtonBorrarRespuestas();
-    	BorrarButtonEnviar();
+    	borrarButtonEnviar();
     }
     function BorrarButtonBorrarRespuestas(){
     	var button = document.querySelector("button[name='borrar']")
@@ -257,11 +258,13 @@ if(isset($_POST['Enviar'])){
 		workin.appendChild(br); 
 		workin.appendChild(buttonEnviar);
     }
-    function BorrarButtonEnviar(){
+    function borrarButtonEnviar(){
     	var button = document.querySelector("button[name='Enviar']")
     	document.querySelector(".workin").removeChild(button);
-
-
+    }
+    function borrarCrearFormulario(){
+    	var button = document.querySelector("button[name='CrearFormulario']")
+    	document.querySelector(".workin").removeChild(button);
     }
 	
 </script>
