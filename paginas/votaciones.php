@@ -76,6 +76,35 @@
 			border-right: 1px solid rgba(170,170,170,0.9);
 			height: 2.5em;
 		}
+		.QA, .QA2{
+			margin-left:auto;
+			margin-right:auto;
+			display:block;
+			width: 50%;
+			padding-top:2em;
+		}
+		.QA2 {
+		  animation-duration: 4s;
+		  animation-name: slidein;
+		}
+		@keyframes slidein {
+		  from {
+			margin-left:auto;
+			margin-right:auto;
+			display:block;
+			width: 50%;
+			padding-top:2em;
+			opacity:0;
+		  }
+
+		  to {
+			margin-left:auto;
+			margin-right:auto;
+			display:block;
+			width: 50%;
+			padding-top:2em;
+		  }
+		}
 
 	</style>
 </head>
@@ -113,48 +142,42 @@
 	<section class="container">
 		<div class="main-container">
 			<div class="workin">
-				<?php
-				$id = $_GET['id'];
-				$qstr = "SELECT * FROM Consulta WHERE ID_Consulta = '$id'";
-				$query = $con->prepare( $qstr );
-				$query->execute();
-				$row = $query->fetch();
-				while ($row) {
-					$consultaid = $row['ID_Consulta'];
-					$consultadesc = $row['Desc_Pregunta'];
-					$consultausuario = $row['ID_Usuario'];
-					$consultafechainicio = $row['F_Inicio'];
-					$consultafechafinal = $row['F_Final'];
+				<div class="QA">
+					<?php
+					$id = $_GET['id'];
+					$qstr = "SELECT * FROM Consulta WHERE ID_Consulta = '$id'";
+					$query = $con->prepare( $qstr );
+					$query->execute();
 					$row = $query->fetch();
-				}
-				echo "<h1>".$consultadesc."</h1>";
-				?>
-				<?php
-				$qstr = "SELECT * FROM Opcion WHERE ID_Consulta = '$id'";
-				$query = $con->prepare( $qstr );
-				$query->execute();
-				$row = $query->fetch();
-				while ($row) {
-					$consultaidopcion = $row['ID_Opcion'];
-					$consultadescripcion = $row['Descripcion'];
-
-
-					echo $consultadescripcion;
-					echo $consultaidopcion;
+					while ($row) {
+						$consultaid = $row['ID_Consulta'];
+						$consultadesc = $row['Desc_Pregunta'];
+						$consultausuario = $row['ID_Usuario'];
+						$consultafechainicio = $row['F_Inicio'];
+						$consultafechafinal = $row['F_Final'];
+						$row = $query->fetch();
+					}
+					echo "<h1>".$consultadesc."</h1>";
+					?>
+				</div>
+				<div class="QA2">
+					<form action ="enviar-votacion.php" method="POST">
+					<?php
+					$qstr = "SELECT * FROM Opcion WHERE ID_Consulta = '$id'";
+					$query = $con->prepare( $qstr );
+					$query->execute();
 					$row = $query->fetch();
-				}
-				?>
-			<div >
-				
-			</div>
-				<!-- <?php
-				$qstr = "INSERT INTO `Votaciones`(`ID_Opcion`) VALUES ($ID_)";
-				$query = $con->prepare( $qstr );
-				$query->execute();
-				if ($e[0]!='00000') {
-					die("Error accedint a dades: " . $e[2]);
-				}
-				?> -->
+					while ($row) {
+						$consultaidopcion = $row['ID_Opcion'];
+						$consultadescripcion = $row['Descripcion'];
+						echo '<input type="radio" name="check" value="'.$consultaidopcion.'" id="'.$consultaidopcion.'">'.$consultadescripcion.'<br>';					
+						$row = $query->fetch();
+					}
+					?>
+					
+					<button type="submit" name="respuesta" value="respuesta">Enviar respuesta</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</section>
