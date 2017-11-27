@@ -89,32 +89,35 @@ function enviarFormulario($consulta,$userid,$fechaInicio,$fechaFinal,$con){
 	}
 	return $idConsulta;
 }
-function enviarFormularioRespuestas($idConsulta,$respuesta,$con){
-	$qstr= "INSERT INTO `Opcion`(`ID_Consulta`, `Descripcion`) VALUES ('$idConsulta','$respuesta')";
-	$query=$con->prepare($qstr);
-	$query->execute();
-	$e= $query->errorInfo();
-	if ($e[0]!='00000') {
-		die("Error accedint a dades: " . $e[2]);
-	}
-	return $idConsulta;
+function enviarFormularioRespuestas($idConsulta,$arrayRespuestas,$con){
+	for ($i=0; $i <sizeof($arrayRespuestas) ; $i++) { 
+		echo $arrayRespuestas[$i];
+		$qstr= "INSERT INTO `Opcion`(`ID_Consulta`, `Descripcion`) VALUES ('$idConsulta','".$arrayRespuestas[$i]."')";
+		$query=$con->prepare($qstr);
+		$query->execute();
+		$e= $query->errorInfo();
+		if ($e[0]!='00000') {
+			die("Error accedint a dades: " . $e[2]);
+		}
 
+	}
+}
+function cojerRespuesta($lista){
+	$listaRespuestas = array();
+	foreach($lista as $llave =>$valor){
+		if (strpos($llave,'Respuesta')!== false){
+			$listaRespuestas[] = $valor;
+		}
+	}
+	return ($listaRespuestas);
 }
 
-if(isset($_POST['Enviar'])){
-		echo "hola";
-		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['fechaInicio'],$_POST['fechaFinal'],$con);
-		$contador = 0;
-		while(true){
-			$contador++;
-			if(isset($_POST['Respuesta '.$contador])){
-				enviarFormularioRespuestas($idConsulta,$_POST['Respuesta '.$contador],$con);
-			}else{
-				break;
-			}
-	
 
-		}	
+if(isset($_POST['Enviar'])){
+		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['fechaInicio'],$_POST['fechaFinal'],$con);
+		$listaRespuestas = cojerRespuesta($_POST);
+		enviarFormularioRespuestas($idConsulta,$listaRespuestas,$con);
+	
 
 			
 
