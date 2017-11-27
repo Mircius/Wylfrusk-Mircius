@@ -101,15 +101,20 @@ function enviarFormularioRespuestas($idConsulta,$respuesta,$con){
 
 }
 
-
 if(isset($_POST['Enviar'])){
-
+		echo "hola";
 		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['fechaInicio'],$_POST['fechaFinal'],$con);
-
-		enviarFormularioRespuestas($idConsulta,$_POST['respuesta'],$con);
+		$contador = 0;
+		while(true){
+			$contador++;
+			if(isset($_POST['Respuesta '.$contador])){
+				enviarFormularioRespuestas($idConsulta,$_POST['Respuesta '.$contador],$con);
+			}else{
+				break;
+			}
 	
 
-
+		}	
 
 			
 
@@ -121,6 +126,7 @@ if(isset($_POST['Enviar'])){
 
 <script>
 	   var count = 1;
+	   var crea = false;
 
 	function crearFormulario() { 
 	   var label = document.createElement('label');
@@ -202,8 +208,13 @@ if(isset($_POST['Enviar'])){
 	   	if (count==1) {
 			crearBorrarRespuestas(form);
 		}
-		if (count==2){
+		if (count>=2){
+			if(crea==true){
+				borrarButtonEnviar()
+
+			}
 			crearBotonEnviar();
+			crea = true;
 		}
 	   	count++;
 	}
@@ -235,12 +246,13 @@ if(isset($_POST['Enviar'])){
 			document.querySelector("form").removeChild(br[i]);
 		}
 		for (var i = br2.length - 1; i >= 0; i--) {
-			document.querySelector(".workin").removeChild(br2[i]);
+			document.querySelector("form").removeChild(br2[i]);
 		}
 		
     	count = 1;
     	BorrarButtonBorrarRespuestas();
     	borrarButtonEnviar();
+    	crea = false;
     }
     function BorrarButtonBorrarRespuestas(){
     	var button = document.querySelector("button[name='borrar']")
@@ -249,18 +261,22 @@ if(isset($_POST['Enviar'])){
     function crearBotonEnviar(){
 		var br = document.createElement('br'); 
 		br.setAttribute('name','beerre2');
-		var buttonEnviar = document.createElement('BUTTON');
-		var buttonEnviarText = document.createTextNode('Enviar formulario');
-		buttonEnviar.appendChild(buttonEnviarText);
+		var buttonEnviar = document.createElement('INPUT');
+		buttonEnviar.setAttribute("type",'submit');
 		buttonEnviar.setAttribute("name",'Enviar');
-		var workin = document.querySelector(".workin");
+		var form = document.querySelector("form");
 		buttonEnviar.setAttribute("value","Enviar")
-		workin.appendChild(br); 
-		workin.appendChild(buttonEnviar);
+		form.appendChild(br); 
+		form.appendChild(buttonEnviar);
     }
     function borrarButtonEnviar(){
-    	var button = document.querySelector("button[name='Enviar']")
-    	document.querySelector(".workin").removeChild(button);
+    	var button = document.querySelector("input[name='Enviar']")
+    	document.querySelector("form").removeChild(button);
+   		var br2 = document.querySelectorAll("br[name='beerre2']");
+   		for (var i = br2.length - 1; i >= 0; i--) {
+			document.querySelector("form").removeChild(br2[i]);
+		}
+
     }
     function borrarCrearFormulario(){
     	var button = document.querySelector("button[name='CrearFormulario']")
@@ -299,7 +315,7 @@ if(isset($_POST['Enviar'])){
 		<div class="main-container">
 			<div class="workin">
 				<button name="CrearFormulario" onclick="crearFormulario()"> Crear Formulario</button>
-				<form action="" method="POST" class="formu">
+				<form action="consultas.php" method="POST" class="formu">
 <!-- 			<p>Escriba la pregunta: </p>
 						<textarea name="consulta" rows="4" cols="50"></textarea>
 
