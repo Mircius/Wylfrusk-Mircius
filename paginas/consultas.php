@@ -149,7 +149,7 @@ if(isset($_POST['Enviar'])){
 	   createFechaFinal(form);
 	   createButtonRespuesta(form,count);
 	   borrarCrearFormulario();
-
+	   onChanged();
 
 	}
 
@@ -220,6 +220,7 @@ if(isset($_POST['Enviar'])){
 			crea = true;
 		}
 	   	count++;
+	   	onChanged();
 	}
 
 	function crearBorrarRespuestas(form){
@@ -285,7 +286,24 @@ if(isset($_POST['Enviar'])){
     	var button = document.querySelector("button[name='CrearFormulario']")
     	document.querySelector(".workin").removeChild(button);
     }
-	
+	function onChanged(){
+		var childs = document.querySelector("form").children;
+		for (var i = 0; i < childs.length; i++) {
+			childs[i].onblur= "";
+
+		}
+		for (var i = 0; i < childs.length; i++) {
+			childs[i].onblur= function(){
+				console.log(event.target.value);
+				if (event.target.value==""){
+					event.target.style.boxShadow ="0 0 5px red";
+				}
+				else{
+					event.target.style.boxShadow ="";
+				}
+			}
+		}
+	}
 </script>
 	<section class="navbar">
 		<div class="navbar-container">
