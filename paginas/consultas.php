@@ -78,8 +78,8 @@
 		include_once ("conexion.php");
 		$userid = $_SESSION['userid'];
 
-function enviarFormulario($consulta,$userid,$preguntaFechaInicio,$preguntaFechaFinal,$con){
-	$qstr= "INSERT INTO `Consulta`(`Desc_Pregunta`, `ID_Usuario`, `F_Inicio`, `F_Final`)  VALUES ('$consulta','$userid','$preguntaFechaInicio','$preguntaFechaFinal' )";
+function enviarFormulario($consulta,$userid,$fechaInicio,$fechaFinal,$con){
+	$qstr= "INSERT INTO `Consulta`(`Desc_Pregunta`, `ID_Usuario`, `F_Inicio`, `F_Final`)  VALUES ('$consulta','$userid','$fechaInicio','$fechaFinal' )";
 	$query=$con->prepare($qstr);
 	$query->execute();
 	$e= $query->errorInfo();
@@ -104,7 +104,7 @@ function enviarFormularioRespuestas($idConsulta,$respuesta,$con){
 
 if(isset($_POST['Enviar'])){
 
-		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['preguntaFechaInicio'],$_POST['preguntaFechaFinal'],$con);
+		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['fechaInicio'],$_POST['fechaFinal'],$con);
 
 		enviarFormularioRespuestas($idConsulta,$_POST['respuesta'],$con);
 	
@@ -118,6 +118,124 @@ if(isset($_POST['Enviar'])){
 }
 
 	?>
+
+<script>
+	   var count = 1;
+
+	function crearFormulario() { 
+	   var label = document.createElement('label');
+	   var textarea = document.createElement('TEXTAREA');
+	   textarea.setAttribute("name", "consulta");
+
+	   var br = document.createElement('br'); 
+	   textarea.cols = 50;
+	   textarea.rows = 4;
+	   var labeltextnode = document.createTextNode('Escriba la pregunta:');
+	   label.appendChild(labeltextnode);
+	   var form = document.querySelector("form");
+	   form.appendChild(label);
+	   form.appendChild(br);
+	   form.appendChild(textarea);
+	   createFechaInicio(form);
+	   createFechaFinal(form);
+	   createButtonRespuesta(form,count);
+
+
+	}
+
+	function createFechaInicio(form){
+		var br = document.createElement('br'); 
+		var labelInicio = document.createElement('labelInicio')
+		var labelTextInicio = document.createTextNode('Introduce la fecha de inicio: ');
+	    var inputInicio = document.createElement('INPUT');
+	   	labelInicio.appendChild(labelTextInicio);
+	    inputInicio.setAttribute("type", "date");
+	   	inputInicio.setAttribute("name", "fechaInicio");
+	   	form.appendChild(br);
+	   	form.appendChild(labelInicio);
+	    form.appendChild(inputInicio);
+
+
+	}
+
+	function createFechaFinal(form){
+		var br = document.createElement('br'); 
+		var labelFinal = document.createElement('labelFinal')
+		var labelTextFinal = document.createTextNode('Introduce la fecha final: ');
+	    var inputFinal = document.createElement('INPUT');
+	   	labelFinal.appendChild(labelTextFinal);
+	    inputFinal.setAttribute("type", "date");
+	   	inputFinal.setAttribute("name", "fechaFinal");
+	   	form.appendChild(br);
+	   	form.appendChild(labelFinal);
+	    form.appendChild(inputFinal);
+	}
+	function createButtonRespuesta(form){
+		var br = document.createElement('br'); 
+		var button = document.createElement('BUTTON');
+		var buttonText = document.createTextNode('Añadir respuesta');
+		button.appendChild(buttonText);
+		button.setAttribute("name","ButtonRespuesta");
+		var workin = document.querySelector(".workin");
+		button.setAttribute("onclick","buttonRespuesta()")
+		workin.appendChild(button);
+		
+		
+
+	}
+	function buttonRespuesta(){
+		var form = document.querySelector("form");
+		var br = document.createElement('br'); 
+		var labelRespuesta = document.createElement('label');
+		labelRespuesta.setAttribute("for","Respuesta")
+		var labeltextRespuesta = document.createTextNode('Respuesta '+count+': ');
+		labelRespuesta.appendChild(labeltextRespuesta);
+	    var inputRespuesta = document.createElement('input');
+	   	inputRespuesta.setAttribute("type", "text");
+	   	inputRespuesta.setAttribute("name", "Respuesta "+count);
+	   	inputRespuesta.setAttribute("class", "RespuestaMaestra");
+	   	form.appendChild(br);
+	   	form.appendChild(labelRespuesta);
+	   	form.appendChild(inputRespuesta);
+	   	if (count==1) {
+			crearBorrarRespuestas(form);
+		}
+	   	count++;
+	}
+
+	function crearBorrarRespuestas(form){
+		var br = document.createElement('br'); 
+		var buttonBorrar = document.createElement('BUTTON');
+		var buttonBorrarText = document.createTextNode('Borrar respuestas');
+		buttonBorrar.appendChild(buttonBorrarText);
+		buttonBorrar.setAttribute("name",'borrar');
+		var workin = document.querySelector(".workin");
+		buttonBorrar.setAttribute("onclick","BorrarRespuestas()")
+		workin.appendChild(buttonBorrar);
+    }
+    function BorrarRespuestas(){
+    	var label = document.querySelectorAll("label[for='Respuesta']");
+    	var input = document.querySelectorAll("input[class='RespuestaMaestra']");
+
+    	for (var i = label.length - 1; i >= 0; i--) {
+    		document.querySelector("form").removeChild(label[i]);
+		}
+		for (var i = input.length - 1; i >= 0; i--) {
+			document.querySelector("form").removeChild(input[i]);
+
+		}
+		
+    	count = 1;
+    	BorrarButtonBorrarRespuestas();
+    }
+    function BorrarButtonBorrarRespuestas(){
+    	var button = document.querySelector("button[name='borrar']")
+    	document.querySelector(".workin").removeChild(button);
+
+
+    }
+	
+</script>
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
@@ -148,9 +266,9 @@ if(isset($_POST['Enviar'])){
 	<section class="container">
 		<div class="main-container">
 			<div class="workin">
+				<button name="CrearFormulario" onclick="crearFormulario()"> Crear Formulario</button>
 				<form action="" method="POST" class="formu">
-
-					<p>Escriba la pregunta: </p>
+<!-- 			<p>Escriba la pregunta: </p>
 						<textarea name="consulta" rows="4" cols="50"></textarea>
 
 						<p>Introduce la fecha de inicio: <input type="date" name="preguntaFechaInicio"></p>
@@ -158,7 +276,8 @@ if(isset($_POST['Enviar'])){
 						<br>
 						<p>Respuesta: <input type="text" name="respuesta"></p>
 						<br>
-						<input type="submit" value="Enviar" name="Enviar">
+						<input type="submit" value="Enviar" name="Enviar"> -->
+
 				</form>
 			</div>
 		</div>
