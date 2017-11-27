@@ -186,6 +186,7 @@ if(isset($_POST['Enviar'])){
 	function buttonRespuesta(){
 		var form = document.querySelector("form");
 		var br = document.createElement('br'); 
+		br.setAttribute('name','beerre');
 		var labelRespuesta = document.createElement('label');
 		labelRespuesta.setAttribute("for","Respuesta")
 		var labeltextRespuesta = document.createTextNode('Respuesta '+count+': ');
@@ -199,6 +200,9 @@ if(isset($_POST['Enviar'])){
 	   	form.appendChild(inputRespuesta);
 	   	if (count==1) {
 			crearBorrarRespuestas(form);
+		}
+		if (count==2){
+			crearBotonEnviar();
 		}
 	   	count++;
 	}
@@ -216,20 +220,45 @@ if(isset($_POST['Enviar'])){
     function BorrarRespuestas(){
     	var label = document.querySelectorAll("label[for='Respuesta']");
     	var input = document.querySelectorAll("input[class='RespuestaMaestra']");
+    	var br = document.querySelectorAll("br[name='beerre']");
+    	var br2 = document.querySelectorAll("br[name='beerre2']");
+
 
     	for (var i = label.length - 1; i >= 0; i--) {
     		document.querySelector("form").removeChild(label[i]);
 		}
 		for (var i = input.length - 1; i >= 0; i--) {
 			document.querySelector("form").removeChild(input[i]);
-
+		}
+		for (var i = br.length - 1; i >= 0; i--) {
+			document.querySelector("form").removeChild(br[i]);
+		}
+		for (var i = br2.length - 1; i >= 0; i--) {
+			document.querySelector(".workin").removeChild(br2[i]);
 		}
 		
     	count = 1;
     	BorrarButtonBorrarRespuestas();
+    	BorrarButtonEnviar();
     }
     function BorrarButtonBorrarRespuestas(){
     	var button = document.querySelector("button[name='borrar']")
+    	document.querySelector(".workin").removeChild(button);
+    }
+    function crearBotonEnviar(){
+		var br = document.createElement('br'); 
+		br.setAttribute('name','beerre2');
+		var buttonEnviar = document.createElement('BUTTON');
+		var buttonEnviarText = document.createTextNode('Enviar formulario');
+		buttonEnviar.appendChild(buttonEnviarText);
+		buttonEnviar.setAttribute("name",'Enviar');
+		var workin = document.querySelector(".workin");
+		buttonEnviar.setAttribute("value","Enviar")
+		workin.appendChild(br); 
+		workin.appendChild(buttonEnviar);
+    }
+    function BorrarButtonEnviar(){
+    	var button = document.querySelector("button[name='Enviar']")
     	document.querySelector(".workin").removeChild(button);
 
 
