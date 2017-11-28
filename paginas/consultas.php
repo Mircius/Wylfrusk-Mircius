@@ -70,6 +70,9 @@
 			border-right: 1px solid rgba(170,170,170,0.9);
 			height: 2.5em;
 		}
+		.boxShadowParaVacioRojo{
+			box-shadow: 0 0 5px red;
+		}
 	</style>
 </head>
 <body>
@@ -259,7 +262,7 @@ if(isset($_POST['Enviar'])){
     	crea = false;
     }
     function BorrarButtonBorrarRespuestas(){
-    	var button = document.querySelector("button[name='borrar']")
+    	var button = document.querySelector("button[name='borrar']");
     	document.querySelector(".workin").removeChild(button);
     }
     function crearBotonEnviar(){
@@ -286,20 +289,36 @@ if(isset($_POST['Enviar'])){
     	var button = document.querySelector("button[name='CrearFormulario']")
     	document.querySelector(".workin").removeChild(button);
     }
+    function interruptorVacioRojo(){
+		var botonEnviar = document.querySelector('body > section.container > div > div > form > input[type="submit"]');
+		console.log(botonEnviar);
+		var interruptorEnviar = document.querySelectorAll('.boxShadowParaVacioRojo');
+
+		if (typeof interruptorEnviar !== 'undefined'){
+			if (interruptorEnviar.length > 0){
+				botonEnviar.disabled = true;
+			}else{
+				botonEnviar.disabled = false;
+			}
+		}
+	}
+
 	function onChanged(){
 		var childs = document.querySelector("form").children;
 		for (var i = 0; i < childs.length; i++) {
 			childs[i].onblur= "";
-
 		}
 		for (var i = 0; i < childs.length; i++) {
 			childs[i].onblur= function(){
-				console.log(event.target.value);
 				if (event.target.value==""){
-					event.target.style.boxShadow ="0 0 5px red";
+					//dar clase
+					event.target.classList.add('boxShadowParaVacioRojo');
+					interruptorVacioRojo();
 				}
 				else{
-					event.target.style.boxShadow ="";
+					//quitar clase
+					event.target.classList.remove('boxShadowParaVacioRojo');
+					interruptorVacioRojo();
 				}
 			}
 		}
