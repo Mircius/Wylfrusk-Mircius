@@ -102,7 +102,6 @@ function enviarFormularioRespuestas($idConsulta,$arrayRespuestas,$con){
 		if ($e[0]!='00000') {
 			die("Error accedint a dades: " . $e[2]);
 		}
-
 	}
 }
 function cojerRespuesta($lista){
@@ -153,6 +152,7 @@ if(isset($_POST['Enviar'])){
 	   createButtonRespuesta(form,count);
 	   borrarCrearFormulario();
 	   onChanged();
+	   required();
 
 	}
 
@@ -224,6 +224,7 @@ if(isset($_POST['Enviar'])){
 		}
 	   	count++;
 	   	onChanged();
+		required();
 	}
 
 	function crearBorrarRespuestas(form){
@@ -291,18 +292,40 @@ if(isset($_POST['Enviar'])){
     }
     function interruptorVacioRojo(){
 		var botonEnviar = document.querySelector('body > section.container > div > div > form > input[type="submit"]');
-		console.log(botonEnviar);
 		var interruptorEnviar = document.querySelectorAll('.boxShadowParaVacioRojo');
-
 		if (typeof interruptorEnviar !== 'undefined'){
 			if (interruptorEnviar.length > 0){
-				botonEnviar.disabled = true;
+				botonDisableEnable(true);
 			}else{
-				botonEnviar.disabled = false;
+				botonDisableEnable(false);
 			}
 		}
 	}
-
+	function botonDisableEnable(e){
+		var botonEnviar = document.querySelector('body > section.container > div > div > form > input[type="submit"]');
+		if (e==true){
+			botonEnviar.disabled= true;
+		}else{
+			botonEnviar.disabled = false;
+		}
+	}
+	function required(){
+			var inputsYCompania = document.querySelectorAll('form > input');
+			for (var i = 0; i < inputsYCompania.length; i++) {
+			inputsYCompania[i].setAttribute("required","true");
+			}
+			document.querySelector('form > textarea').setAttribute("required","true");
+			var inputsFecha = document.querySelectorAll('form > input[type=date]');
+			for (var i = 0; i < inputsFecha.length; i++) {
+				inputsFecha[i].onchange = function(){
+					var fechaUno = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(6)');
+					var fechaDos = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(9)');
+					if (fechaUno.value !== "" && fechaDos.value !== ""){
+						fecha();
+					}
+				};
+			}
+	}
 	function onChanged(){
 		var childs = document.querySelector("form").children;
 		for (var i = 0; i < childs.length; i++) {
@@ -323,6 +346,54 @@ if(isset($_POST['Enviar'])){
 			}
 		}
 	}
+	function fecha(){
+		var interruptor = true;
+		var hoy = new Date();
+		var day = hoy.getDate();
+        var month = hoy.getMonth() + 1;
+        var year = hoy.getFullYear();
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+        var fechaHoy = year + "-" + month + "-" + day;
+		var fechaInicio = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(6)').value;
+		fechaInicio = fechaInicio.split("-");
+		var fechaFinal = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(9)').value;
+		fechaFinal = fechaFinal.split("-");
+		var fechaInicioMasUno = new Date(fechaInicio[0],parseInt(fechaInicio[1])-1,parseInt(fechaInicio[2])+1);
+		var day2 = fechaInicioMasUno.getDate();
+        var month2 = fechaInicioMasUno.getMonth() +1 ;
+        var year2 = fechaInicioMasUno.getFullYear();
+        if (month2 < 10) month2 = "0" + month2;
+        if (day2 < 10) day2 = "0" + day2;
+        var fechaInicioMasUno = year2 + "-" + month2 + "-" + day2;
+		//var diaajuste= parseInt(fechaInicioMasUno[2]);
+		//diaajuste = diaajuste +1;
+		//fechaInicioMasUno[2]= diaajuste.toString();
+
+		fechaInicio = fechaInicio[0] + "-" + fechaInicio[1] + "-" + fechaInicio[2];
+		fechaFinal = fechaFinal[0] + "-" + fechaFinal[1] + "-" + fechaFinal[2];
+
+		   if (fechaInicio < fechaHoy){
+				alert("La fecha de inicio no puede ser anterior a hoy");
+		   }
+		   if (fechaFinal < fechaHoy){
+				alert("La fecha final no puede ser anterior a hoy");
+		   }
+		   if (fechaInicio == fechaHoy){
+	   		   alert("La fecha de inicio no puede ser hoy");
+		   }
+		   if (fechaInicio >= fechaFinal){
+				alert("La fecha final tiene que ser posterior a la fecha inicio");
+		   }
+		   if (fechaInicioMasUno >= fechaFinal){
+	   		   alert("La fecha de final no puede estar tan proxima a la de inicio");
+		   }
+		   if(fechaInicio <= fechaHoy && fechaInicio >= fechaFinal && fechaInicioMasUno >= fechaFinal){
+				botonDisableEnable(true);
+			}else{
+				botonDisableEnable(false);
+			}
+		}
 </script>
 	<section class="navbar">
 		<div class="navbar-container">
