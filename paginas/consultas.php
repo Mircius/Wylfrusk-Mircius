@@ -127,7 +127,6 @@ function enviarFormulario($consulta,$userid,$fechaInicio,$fechaFinal,$con){
 }
 function enviarFormularioRespuestas($idConsulta,$arrayRespuestas,$con){
 	for ($i=0; $i <sizeof($arrayRespuestas) ; $i++) { 
-		echo $arrayRespuestas[$i];
 		$qstr= "INSERT INTO `Opcion`(`ID_Consulta`, `Descripcion`) VALUES ('$idConsulta','".$arrayRespuestas[$i]."')";
 		$query=$con->prepare($qstr);
 		$query->execute();
