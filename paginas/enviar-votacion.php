@@ -1,7 +1,7 @@
 <?php
 include_once('conexion.php');
 $check = $_POST['check'];
-$qstr= "INSERT INTO `votaciones`(`ID_Opcion`) VALUES ($check)";
+$qstr= "INSERT INTO `Votaciones`(`ID_Opcion`) VALUES ($check)";
 $query=$con->prepare($qstr);
 $query->execute();
 $e= $query->errorInfo();

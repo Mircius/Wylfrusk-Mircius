@@ -132,6 +132,39 @@
 		td.text-left {
 		  text-align: left;
 		}
+		.logo{
+			display:block;
+			margin-left:auto;
+			margin-right:auto;
+			margin:10px;
+		}
+		.logo img{
+			display:block;
+			margin-left:auto;
+			margin-right:auto;
+			width: 150px;
+			height: auto;
+			position:relative;
+			animation: slide_in 5s ease-in-out infinite;
+		}
+		@keyframes slide_in {
+			0%{opacity:0.1;}
+			50%{opacity:1;}
+			100%{opacity:0.1;}
+		  }
+
+		.banner{
+			display:block;
+			margin-left: auto;
+			margin-right:auto;
+		}
+		.banner img{
+			display:block;
+			margin-left: auto;
+			margin-right:auto;
+			width: auto;
+			height:200px;
+		}
 
 	</style>
 </head>
@@ -140,10 +173,13 @@
 	session_start();
 	include_once('conexion.php');
 	?>
+	<div class="logo">
+		<img src="img/projectvota-01-01.png">
+	</div>
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href="index.php"><i class="fa fa-home"></i>  Home</a>
+				<a href=""><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
@@ -175,6 +211,9 @@
 	</section>
 	<section class="footer">
 		<div class="footer-container">
+			<div class="banner">
+				<img src="img/projectvota3-01.png">
+			</div>
 		</div>
 	</section>
 </body>

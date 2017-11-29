@@ -189,11 +189,11 @@
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			
 			<div class="navbar-option-dos">
