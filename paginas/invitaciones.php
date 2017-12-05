@@ -208,11 +208,12 @@
 				<?php 
 					if (isset($_SESSION['user'])){
 						echo '<h1> Invitación </h1>';
-						echo '<form method="POST"><input type="text" name="invitacion" required><input type="submit"></form>';
+						echo '<form action="enviar-invitaciones.php" method="POST"><input type="text" name="invitacion" required><input type="submit"></form>';
 
 					}else{
-						echo '<h1>Inicia sesión para invitar a alguien</h1>'
+						echo '<h1>Inicia sesión para invitar a alguien</h1>';
 					};
+
 				?>
 				
 

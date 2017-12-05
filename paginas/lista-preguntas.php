@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html>
 <head>
 	<title>Main</title>
@@ -172,6 +172,16 @@
 			var id = e.id;
 			window.location.href = "votaciones.php?id="+id;
 		}
+		function onClickedIrAInvitacionesConId(p){
+			console.log('hola');
+			var preguntaid = p.id;
+			if (document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text == " "){
+				alert('No puedes invitar a alguien sin iniciar sesión');
+			}else{
+				var username = document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text;
+				window.location.href = "invitaciones.php?preguntaid="+preguntaid;
+			}
+		}
 	</script>
 </head>
 <body>
@@ -203,7 +213,8 @@
 			<div class="navbar-option-dos">
 				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
-					echo $_SESSION['user'];
+					$userid = $_SESSION['userid'];
+					echo "<span id='$userid'>".$_SESSION['user']."</span>";
 				}; ?></a>
 			</div>
 		</div>
@@ -215,6 +226,7 @@
 						<th>Descripción pregunta</th>
 						<th>Fecha inicio</th>
 						<th>Fecha final</th>
+						<th>Comparteix</th>
 					</tr>
 					<?php 
 						
@@ -223,10 +235,11 @@
 						$query->execute();
 						$row = $query->fetch();
 						while ($row) {
-							echo '<tr onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">';
-							echo '<td>'.$row['Desc_Pregunta'].'</td>';
+							echo '<tr>';
+							echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
 							echo '<td>'.$row['F_Inicio'].'</td>';
 							echo '<td>'.$row['F_Final'].'</td>';
+							echo '<td style="text-align:center" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
 							echo '</tr>';
 							$row = $query->fetch();
 						}
