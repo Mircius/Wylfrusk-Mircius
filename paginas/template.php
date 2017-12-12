@@ -32,7 +32,7 @@
 		.footer-container{
 			margin-top: 20px;
 			width: 90%;
-			height: 3em;
+			height: auto;
 			margin-left: auto;
 			margin-right: auto;
 			display: block;
@@ -86,9 +86,7 @@
 		  padding:5px;
 		  width: 100%;
 		  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-
 		}
-		 
 		th {
 		  color:#D5DDE5;;
 		  background:#1b1e24;
@@ -165,6 +163,15 @@
 			width: auto;
 			height:200px;
 		}
+		.workin{
+			margin-left: auto;
+			margin-right: auto;
+			display:block;
+			width: 60%;
+			height: 90%;
+			padding-top:1em;
+		}
+		
 
 	</style>
 </head>
@@ -179,7 +186,7 @@
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-home"></i>  Home</a>
+				<a href="home.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
@@ -205,17 +212,7 @@
 	<section class="container">
 		<div class="main-container">
 			<div class="workin">
-				<?php 
-					if (isset($_SESSION['user'])){
-						echo '<h1> Invitación </h1>';
-						echo '<form method="POST"><input type="text" name="invitacion" required><input type="submit"></form>';
-
-					}else{
-						echo '<h1>Inicia sesión para invitar a alguien</h1>'
-					};
-				?>
 				
-
 			</div>
 		</div>
 	</section>

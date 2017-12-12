@@ -3,11 +3,9 @@
 <head>
 	<title>Main</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-
 	<style>
 		html, body{
-			font-family: 'Roboto Condensed', sans-serif;
+			font-family: 'Barlow Semi Condensed', sans-serif;
 			height: 100%;
 		}
 		.navbar-container{
@@ -167,24 +165,16 @@
 			width: auto;
 			height:200px;
 		}
+		.workin{
+			margin-left: auto;
+			margin-right: auto;
+			display:block;
+			width: 60%;
+			height: 90%;
+			padding-top:1em;
+		}
 
 	</style>
-	<script>
-		function onClickedIrAVotacionesConId(e){
-			var id = e.id;
-			window.location.href = "votaciones.php?id="+id;
-		}
-		function onClickedIrAInvitacionesConId(p){
-			console.log('hola');
-			var preguntaid = p.id;
-			if (document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text == " "){
-				alert('No puedes invitar a alguien sin iniciar sesión');
-			}else{
-				var username = document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text;
-				window.location.href = "invitaciones.php?preguntaid="+preguntaid;
-			}
-		}
-	</script>
 </head>
 <body>
 	<?php 
@@ -197,7 +187,7 @@
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href="home.php"><i class="fa fa-home"></i>  Home</a>
+				<a href=""><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
@@ -215,39 +205,32 @@
 			<div class="navbar-option-dos">
 				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
-					$userid = $_SESSION['userid'];
-					echo "<span id='$userid'>".$_SESSION['user']."</span>";
+					echo $_SESSION['user'];
 				}; ?></a>
 			</div>
 		</div>
 	</section>
 	<section class="container">
+		<div class="main-container">
 			<div class="workin">
-				<table class="table-fill">
-					<tr>
-						<th>Descripción pregunta</th>
-						<th>Fecha inicio</th>
-						<th>Fecha final</th>
-						<th>Comparteix</th>
-					</tr>
-					<?php 
-						
-						$qstr = "SELECT * FROM Consulta";
-						$query = $con->prepare( $qstr );
-						$query->execute();
-						$row = $query->fetch();
-						while ($row) {
-							echo '<tr>';
-							echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
-							echo '<td>'.$row['F_Inicio'].'</td>';
-							echo '<td>'.$row['F_Final'].'</td>';
-							echo '<td style="text-align:center" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
-							echo '</tr>';
-							$row = $query->fetch();
-						}
+				<?php 
+					$x = $_SESSION['userid'];
+						$qstr = "SELECT * FROM Invitacion WHERE ID_Usuario = $x"
+						//$query = $con->prepare( $qstr );
+						//$query->execute();
+						//$row = $query->fetch();
+						//while ($row) {
+						//	echo '<tr>';
+						//	echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
+						//	echo '<td>'.$row['F_Inicio'].'</td>';
+						//	echo '<td>'.$row['F_Final'].'</td>';
+						//	echo '<td style="text-align:center" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
+						//	echo '</tr>';
+						//	$row = $query->fetch();
+						//}
 					?>
-				</table>
 			</div>
+		</div>
 	</section>
 	<section class="footer">
 		<div class="footer-container">

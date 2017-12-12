@@ -3,9 +3,11 @@
 <head>
 	<title>Main</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
 	<style>
 		html, body{
-			font-family: 'Barlow Semi Condensed', sans-serif;
+			font-family: 'Roboto Condensed', sans-serif;
 			height: 100%;
 		}
 		.navbar-container{
@@ -152,7 +154,7 @@
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-home"></i>  Home</a>
+				<a href="home.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">

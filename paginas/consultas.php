@@ -3,9 +3,11 @@
 <head>
 	<title>Main</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
 	<style>
 		html, body{
-			font-family: 'Barlow Semi Condensed', sans-serif;
+			font-family: 'Roboto Condensed', sans-serif;
 			height: 100%;
 		}
 		.navbar-container{
@@ -43,7 +45,10 @@
 	.navbar-option{
 			margin-top: 6px;
 			float: left;
-			padding: 0.5em;
+			padding-top: 0.5em;
+			padding-bottom: 0.5em;
+			margin-left:30px;
+			margin-right:30px;
 		}
 		.navbar-option-dos{
 			margin-top: 6px;
@@ -433,7 +438,7 @@ if(isset($_POST['Enviar'])){
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-home"></i>  Home</a>
+				<a href="home.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
@@ -462,16 +467,6 @@ if(isset($_POST['Enviar'])){
 			<div class="workin">
 				<button name="CrearFormulario" onclick="crearFormulario()"> Crear Formulario</button>
 				<form action="consultas.php" method="POST" class="formu">
-<!-- 			<p>Escriba la pregunta: </p>
-						<textarea name="consulta" rows="4" cols="50"></textarea>
-
-						<p>Introduce la fecha de inicio: <input type="date" name="preguntaFechaInicio"></p>
-						<p>Introduce la fecha final: <input type="date" name="preguntaFechaFinal"></p>
-						<br>
-						<p>Respuesta: <input type="text" name="respuesta"></p>
-						<br>
-						<input type="submit" value="Enviar" name="Enviar"> -->
-
 				</form>
 			</div>
 		</div>

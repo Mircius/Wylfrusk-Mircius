@@ -23,8 +23,7 @@
 		.main-container{
 			margin-top: 20px;
 			width: 90%;
-			height: 28em;
-			background-color: rgba(200,200,200,0.9);
+			height: 25em;
 			margin-right: auto;
 			margin-left: auto;
 			display: block;
@@ -88,9 +87,7 @@
 		  padding:5px;
 		  width: 100%;
 		  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-
 		}
-		 
 		th {
 		  color:#D5DDE5;;
 		  background:#1b1e24;
@@ -167,24 +164,17 @@
 			width: auto;
 			height:200px;
 		}
+		.workin{
+			margin-left: auto;
+			margin-right: auto;
+			display:block;
+			width: 100%;
+			height: 100%;
+			padding-top:1em;
+		}
+		
 
 	</style>
-	<script>
-		function onClickedIrAVotacionesConId(e){
-			var id = e.id;
-			window.location.href = "votaciones.php?id="+id;
-		}
-		function onClickedIrAInvitacionesConId(p){
-			console.log('hola');
-			var preguntaid = p.id;
-			if (document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text == " "){
-				alert('No puedes invitar a alguien sin iniciar sesión');
-			}else{
-				var username = document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text;
-				window.location.href = "invitaciones.php?preguntaid="+preguntaid;
-			}
-		}
-	</script>
 </head>
 <body>
 	<?php 
@@ -215,39 +205,27 @@
 			<div class="navbar-option-dos">
 				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
-					$userid = $_SESSION['userid'];
-					echo "<span id='$userid'>".$_SESSION['user']."</span>";
+					echo $_SESSION['user'];
 				}; ?></a>
 			</div>
 		</div>
 	</section>
 	<section class="container">
-			<div class="workin">
-				<table class="table-fill">
-					<tr>
-						<th>Descripción pregunta</th>
-						<th>Fecha inicio</th>
-						<th>Fecha final</th>
-						<th>Comparteix</th>
-					</tr>
-					<?php 
-						
-						$qstr = "SELECT * FROM Consulta";
-						$query = $con->prepare( $qstr );
-						$query->execute();
-						$row = $query->fetch();
-						while ($row) {
-							echo '<tr>';
-							echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
-							echo '<td>'.$row['F_Inicio'].'</td>';
-							echo '<td>'.$row['F_Final'].'</td>';
-							echo '<td style="text-align:center" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
-							echo '</tr>';
-							$row = $query->fetch();
-						}
-					?>
-				</table>
+		<div class="main-container">
+			<div class="workin" style="float:left">
+				
+				<h1 style="margin-right:auto;margin-left: auto;display: block;text-align: center;">¿Qué és PROJECT VOTA?</h1>
+				<div style="margin-right:auto;margin-left: auto;display: block; height: auto;width:60%">
+					<div style="width:30%;padding:3em;padding-top:1em;float:left"> 
+					<p><i class="fa fa-circle" style="color:blue;padding:4px"></i>Es un sistema de votaciones y encuestas online.</p>
+					<p><i class="fa fa-circle" style="color:red;padding:4px"></i>Participaciones anónimas pero controladas.</p>
+					<p><i class="fa fa-circle" style="color:green;padding:4px"></i>Unifica tus votaciones online y obtén resultados claros.</p>
+					<p><i class="fa fa-circle" style="color:yellow;padding:4px"></i>Planifica fecha y hora de tus votaciones online.</p>
+					</div>
+					<img src="img/home.svg" style="width:50%;float:left;">
+				</div>
 			</div>
+		</div>
 	</section>
 	<section class="footer">
 		<div class="footer-container">
