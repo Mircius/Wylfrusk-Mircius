@@ -205,9 +205,23 @@ if(isset($_POST['Enviar'])){
 	}
 	function botonBorrarUnaRespuesta(event){
 		event.currentTarget.parentNode.remove();
+		var div = document.querySelectorAll("div[name='divaso']");
 
-		for (var i =0; i<x.length;i++){
-		console.log(x.item);
+		for (var i =0; i<div.length;i++){
+
+		var label = div[i].children[0];		
+		i++;
+		label.innerHTML = "Respuesta "+ i +": ";
+		i--;
+		
+		}
+		count = div.length+1;
+		if (count == 1){
+			BorrarButtonBorrarRespuestas();
+			borrarButtonEnviar();
+			crea = false;
+
+
 		}
 
 		/*var target = this;
@@ -219,6 +233,32 @@ if(isset($_POST['Enviar'])){
 
 	}
 
+	function crearBotonSubirRespuesta(div){
+		var button = document.createElement('BUTTON');
+		var buttonText = document.createTextNode('Subir');
+		button.appendChild(buttonText);
+		button.setAttribute("name", "SubirRespuesta");
+		button.setAttribute("onclick","botonSubirRespuesta(event)");
+		div.appendChild(button);
+	}
+	function botonSubirRespuesta(event){
+		var test = event.currentTarget.parentNode.cloneNode();
+		console.log(test);
+
+
+
+	}
+	function crearBotonBajarRespuesta(div){
+		var button = document.createElement('BUTTON');
+		var buttonText = document.createTextNode('Bajar');
+		button.appendChild(buttonText);
+		button.setAttribute("name", "BajarRespuesta");
+		button.setAttribute("onclick","botonBajarRespuesta(event)");
+		div.appendChild(button);
+	}
+	function botonBajarRespuesta(event){
+
+	}
 	function crearFechaInicio(form){
 		var br = document.createElement('br'); 
 		var labelInicio = document.createElement('labelInicio')
@@ -257,7 +297,6 @@ if(isset($_POST['Enviar'])){
 		workin.appendChild(button);
 		
 		
-
 	}
 	function buttonRespuesta(){
 		var div = document.createElement("div");
@@ -274,16 +313,17 @@ if(isset($_POST['Enviar'])){
 	   	inputRespuesta.setAttribute("name", "Respuesta "+count);
 	   	inputRespuesta.setAttribute("class", "RespuestaMaestra");
 	   	form.appendChild(div);
-/*	   	form.appendChild(br);
-*/	   	div.appendChild(labelRespuesta);
+	   	div.appendChild(labelRespuesta);
 	   	div.appendChild(inputRespuesta);
+	   	crearBotonSubirRespuesta(div);
+	   	crearBotonBajarRespuesta(div);
 	   	crearBotonBorrarUnaRespuesta(div);
 	   	if (count==1) {
 			crearBorrarRespuestas(form);
 		}
 		if (count>=2){
 			if(crea==true){
-				borrarButtonEnviar()
+				borrarButtonEnviar();
 
 			}
 			crearBotonEnviar();
@@ -305,32 +345,10 @@ if(isset($_POST['Enviar'])){
 		workin.appendChild(buttonBorrar);
     }
     function BorrarRespuestas(){
-  /*  	var label = document.querySelectorAll("label[for='Respuesta']");
-    	var input = document.querySelectorAll("input[class='RespuestaMaestra']");
-    	var br = document.querySelectorAll("br[name='beerre']");
-    	var br2 = document.querySelectorAll("br[name='beerre2']");
-    	var boton = document.querySelectorAll("button[name='BorrarUnaRespuesta']")*/
     	var div = document.querySelectorAll("div[name='divaso']");
-
     	for (var i = div.length - 1; i >= 0; i--) {
     		document.querySelector("form").removeChild(div[i]);
     	}
-    	/*for (var i = label.length - 1; i >= 0; i--) {
-    		document.querySelector("form").removeChild(label[i]);
-		}
-		for (var i = input.length - 1; i >= 0; i--) {
-			document.querySelector("form").removeChild(input[i]);
-		}
-		for (var i = br.length - 1; i >= 0; i--) {
-			document.querySelector("form").removeChild(br[i]);
-		}
-		for (var i = br2.length - 1; i >= 0; i--) {
-			document.querySelector("form").removeChild(br2[i]);
-		}
-		for (var i = boton.length - 1; i >= 0; i--) {
-			document.querySelector("form").removeChild(boton[i]);
-		}
-		*/
     	count = 1;
     	BorrarButtonBorrarRespuestas();
     	borrarButtonEnviar();
