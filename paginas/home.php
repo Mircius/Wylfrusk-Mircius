@@ -190,13 +190,14 @@
 				<a href="home.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
-			<div class="navbar-option">
-				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+            <div class="navbar-option">
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
+
 			
 			<div class="navbar-option-dos">
 				<a href="logout.php"><i class="fa fa-window-close"></i>   Log out</a>

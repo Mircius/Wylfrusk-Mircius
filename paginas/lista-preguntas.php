@@ -187,7 +187,7 @@
 	</script>
 </head>
 <body>
-	<?php 
+	<?php
 	session_start();
 	include_once('conexion.php');
 	?>
@@ -200,12 +200,12 @@
 				<a href="home.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
-			<div class="navbar-option">
-				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+            <div class="navbar-option">
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 			
 			<div class="navbar-option-dos">
@@ -216,7 +216,9 @@
 				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					$userid = $_SESSION['userid'];
-					echo "<span id='$userid'>".$_SESSION['user']."</span>";
+					$userIsAdmin = $_SESSION['admin'];
+					echo "<span id='$userid' name='$userIsAdmin'>".$_SESSION['user']."</span>";
+					
 				}; ?></a>
 			</div>
 		</div>

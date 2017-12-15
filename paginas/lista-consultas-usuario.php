@@ -190,13 +190,14 @@
 				<a href=""><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
-			<div class="navbar-option">
-				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+            <div class="navbar-option">
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
+
 			
 			<div class="navbar-option-dos">
 				<a href="logout.php"><i class="fa fa-window-close"></i>   Log out</a>
@@ -213,22 +214,36 @@
 	<section class="container">
 		<div class="main-container">
 			<div class="workin">
+				<table>
+					<tr>
+						<th>Email</th>
+						<th>Descripción pregunta</th>
+					</tr>
 				<?php 
 					$x = $_SESSION['userid'];
-						$qstr = "SELECT * FROM Invitacion WHERE ID_Usuario = $x"
-						//$query = $con->prepare( $qstr );
-						//$query->execute();
-						//$row = $query->fetch();
-						//while ($row) {
-						//	echo '<tr>';
-						//	echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
-						//	echo '<td>'.$row['F_Inicio'].'</td>';
-						//	echo '<td>'.$row['F_Final'].'</td>';
-						//	echo '<td style="text-align:center" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
-						//	echo '</tr>';
-						//	$row = $query->fetch();
-						//}
+					
+						$qstr = "SELECT u.Email email, c.Desc_Pregunta pregunta FROM Usuario u , Invitacion i, Consulta c WHERE u.ID_Usuario = i.ID_Usuario AND i.ID_Consulta = c.ID_Consulta;";
+
+						$query = $con->prepare( $qstr );
+						
+						//var_dump($con->errorInfo());
+						
+
+						$r = $query->execute();
+						$row = $query->fetch();
+
+						//var_dump($con->errorInfo());
+
+						while ($row) {
+							echo '<tr>';
+							echo '<td>'.$row['email'].'</td>';
+							echo '<td>'.$row['pregunta'].'</td>';
+							echo '</tr>';
+							$row = $query->fetch();
+						}
+
 					?>
+				</table>
 			</div>
 		</div>
 	</section>

@@ -130,7 +130,7 @@ function verificar_login($user,$password,$con) {
 			if ($row['Contrasena'] == $password){
 				$count++;
 				$GLOBALS['result']=$row;
-				echo 'hola';
+				
 			}
 		}
 		$row = $query->fetch();
@@ -172,7 +172,7 @@ if(!isset($_SESSION['userid']))
 
 <?php
 } else {
-	echo 'Su usuario ingreso correctamente.';
+	echo 'Su usuario ingresó correctamente.';
 	echo '<a href="logout.php">Logout</a>';
 }
 ?>

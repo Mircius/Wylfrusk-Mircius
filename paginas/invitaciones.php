@@ -3,9 +3,10 @@
 <head>
 	<title>Main</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 	<style>
 		html, body{
-			font-family: 'Barlow Semi Condensed', sans-serif;
+			font-family: 'Roboto Condensed', sans-serif;
 			height: 100%;
 		}
 		.navbar-container{
@@ -182,13 +183,14 @@
 				<a href=""><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
-			<div class="navbar-option">
-				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+            <div class="navbar-option">
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
+
 			
 			<div class="navbar-option-dos">
 				<a href="logout.php"><i class="fa fa-window-close"></i>   Log out</a>
@@ -208,7 +210,7 @@
 				<?php 
 					if (isset($_SESSION['user'])){
 						echo '<h1> Invitación </h1>';
-						echo '<form action="enviar-invitaciones.php" method="POST"><input type="text" name="invitacion" required><input type="submit"></form>';
+						echo '<form action="enviar.php" method="POST"><input type="text" name="correo" required><input type="text" name="idconsulta" style="display:none" value="'.$_GET['preguntaid'].'"><input type="submit"></form>';
 
 					}else{
 						echo '<h1>Inicia sesión para invitar a alguien</h1>';
