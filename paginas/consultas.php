@@ -238,12 +238,41 @@ if(isset($_POST['Enviar'])){
 		var buttonText = document.createTextNode('Subir');
 		button.appendChild(buttonText);
 		button.setAttribute("name", "SubirRespuesta");
+		button.setAttribute("type","button");
 		button.setAttribute("onclick","botonSubirRespuesta(event)");
 		div.appendChild(button);
 	}
 	function botonSubirRespuesta(event){
-		var test = event.currentTarget.parentNode.cloneNode();
-		console.log(test);
+		var form = document.querySelector("form");
+		var divs = event.currentTarget.parentNode
+		var divsClone = event.currentTarget.parentNode.cloneNode(true);
+		var anterior = divs.previousSibling;
+		
+		if (anterior.tagName=="DIV"){
+			event.currentTarget.parentNode.remove();
+			form.insertBefore(divsClone,anterior);
+			var div = document.querySelectorAll("div[name='divaso']");
+
+			for (var i =0; i<div.length;i++){
+
+				var label = div[i].children[0];		
+				i++;
+				label.innerHTML = "Respuesta "+ i +": ";
+				i--;
+
+			}
+		
+		}
+
+		
+		
+/*
+		divs.parentNode.replaceChild(divs.cloneNode(), anterior);*/
+
+
+
+
+
 
 
 
@@ -253,12 +282,35 @@ if(isset($_POST['Enviar'])){
 		var buttonText = document.createTextNode('Bajar');
 		button.appendChild(buttonText);
 		button.setAttribute("name", "BajarRespuesta");
+		button.setAttribute("type","button");
 		button.setAttribute("onclick","botonBajarRespuesta(event)");
 		div.appendChild(button);
 	}
 	function botonBajarRespuesta(event){
+		var form = document.querySelector("form");
+		var divs = event.currentTarget.parentNode
+		var divsClone = event.currentTarget.parentNode.cloneNode(true);
+		var siguiente = divs.nextSibling;
+		if (siguiente.tagName=="DIV"){
+			event.currentTarget.parentNode.remove();
+			insertAfter(divsClone,siguiente);
+			var div = document.querySelectorAll("div[name='divaso']");
+
+			for (var i =0; i<div.length;i++){
+
+				var label = div[i].children[0];		
+				i++;
+				label.innerHTML = "Respuesta "+ i +": ";
+				i--;
+
+			}
+		
+		}
 
 	}
+	function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
 	function crearFechaInicio(form){
 		var br = document.createElement('br'); 
 		var labelInicio = document.createElement('labelInicio')
