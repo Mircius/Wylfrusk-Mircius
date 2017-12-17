@@ -1,7 +1,9 @@
 <?php
+session_start();
 include_once('conexion.php');
 $check = $_POST['check'];
-$qstr= "INSERT INTO `Votaciones`(`ID_Opcion`) VALUES ($check)";
+$usuario = $_SESSION['userid'];
+$qstr= "INSERT INTO `Votaciones`(`ID_Opcion`,`ID_Usuario`) VALUES ($check,$usuario)";
 $query=$con->prepare($qstr);
 $query->execute();
 $e= $query->errorInfo();

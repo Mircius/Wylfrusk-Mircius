@@ -3,9 +3,10 @@
 <head>
 	<title>Main</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 	<style>
 		html, body{
-			font-family: 'Barlow Semi Condensed', sans-serif;
+			font-family: 'Roboto Condensed', sans-serif;
 			height: 100%;
 		}
 		.navbar-container{
@@ -175,6 +176,12 @@
 		}
 
 	</style>
+	<script>
+		function onClickedIrAVotacionesConId(e){
+			var id = e.id;
+			window.location.href = "votaciones.php?id="+id;
+		}
+	</script>
 </head>
 <body>
 	<?php 
@@ -204,7 +211,7 @@
 			</div>
 			<div class="headerDivider-dos"></div>
 			<div class="navbar-option-dos">
-				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
+				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					echo $_SESSION['user'];
 				}; ?></a>
@@ -214,6 +221,7 @@
 	<section class="container">
 		<div class="main-container">
 			<div class="workin">
+			<h1>Consultas en las que estas invitado:</h1>
 				<table>
 					<tr>
 						<th>Email</th>
@@ -222,27 +230,26 @@
 				<?php 
 					$x = $_SESSION['userid'];
 					
-						$qstr = "SELECT u.Email email, c.Desc_Pregunta pregunta FROM Usuario u , Invitacion i, Consulta c WHERE u.ID_Usuario = i.ID_Usuario AND i.ID_Consulta = c.ID_Consulta;";
+						$qstr = "SELECT i.ID_Consulta idconsulta, u.ID_Usuario user, u.Email email, c.Desc_Pregunta pregunta FROM Usuario u , Invitacion i, Consulta c WHERE u.ID_Usuario = i.ID_Usuario AND i.ID_Consulta = c.ID_Consulta;";
 
 						$query = $con->prepare( $qstr );
-						
-						//var_dump($con->errorInfo());
 						
 
 						$r = $query->execute();
 						$row = $query->fetch();
 
-						//var_dump($con->errorInfo());
 
 						while ($row) {
-							echo '<tr>';
+						if ($row['user'] == $x){
+							echo '<tr onclick="onClickedIrAVotacionesConId(this)" id="'.$row['idconsulta'].'">';
 							echo '<td>'.$row['email'].'</td>';
 							echo '<td>'.$row['pregunta'].'</td>';
 							echo '</tr>';
+						}
 							$row = $query->fetch();
 						}
 
-					?>
+				?>
 				</table>
 			</div>
 		</div>

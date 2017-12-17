@@ -197,7 +197,7 @@
 			</div>
 			<div class="headerDivider-dos"></div>
 			<div class="navbar-option-dos">
-				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
+				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					echo $_SESSION['user'];
 				}; ?></a>

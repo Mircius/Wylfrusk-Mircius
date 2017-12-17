@@ -549,11 +549,11 @@ if(isset($_POST['Enviar'])){
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
+				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
 			<div class="headerDivider"></div>
 			<div class="navbar-option">
-				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
+				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 			
 			<div class="navbar-option-dos">
@@ -561,7 +561,7 @@ if(isset($_POST['Enviar'])){
 			</div>
 			<div class="headerDivider-dos"></div>
 			<div class="navbar-option-dos">
-				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
+				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					echo $_SESSION['user'];
 				}; ?></a>

@@ -170,25 +170,23 @@
 
 	</style>
 	<script>
+	function onClickedIrAInvitacionesConId(p){
+		var preguntaid = p.id;
+		if (document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text == ""){
+			alert('No puedes invitar a alguien sin iniciar sesión');
+		}else{
+			window.location.href = "invitaciones.php?preguntaid="+preguntaid;
+		}
+	}
 		function onClickedIrAVotacionesConId(e){
 			var id = e.id;
 			window.location.href = "votaciones.php?id="+id;
 		}
-		function onClickedIrAInvitacionesConId(p){
-			console.log('hola');
-			var preguntaid = p.id;
-			if (document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text == " "){
-				alert('No puedes invitar a alguien sin iniciar sesión');
-			}else{
-				var username = document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text;
-				window.location.href = "invitaciones.php?preguntaid="+preguntaid;
-			}
-		}
-	</script>
+</script>
 </head>
 <body>
-	<?php
-	session_start();
+<?php
+session_start();
 	include_once('conexion.php');
 	?>
 	<div class="logo">
@@ -213,13 +211,14 @@
 			</div>
 			<div class="headerDivider-dos"></div>
 			<div class="navbar-option-dos">
-				<a href=""><i class="fa fa-hand-spock-o"></i> <?php 
+				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					$userid = $_SESSION['userid'];
 					$userIsAdmin = $_SESSION['admin'];
 					echo "<span id='$userid' name='$userIsAdmin'>".$_SESSION['user']."</span>";
 					
-				}; ?></a>
+				};
+				?></a>
 			</div>
 		</div>
 	</section>
@@ -230,24 +229,45 @@
 						<th>Descripción pregunta</th>
 						<th>Fecha inicio</th>
 						<th>Fecha final</th>
+						<th>Hora inici</th>
+						<th>Hora final</th>
 						<th>Comparteix</th>
 					</tr>
 					<?php 
+						$x = $_SESSION['userid'];
 						
+
 						$qstr = "SELECT * FROM Consulta";
 						$query = $con->prepare( $qstr );
 						$query->execute();
 						$row = $query->fetch();
 						while ($row) {
-							echo '<tr>';
+							
+							$qstr2 = "SELECT c.ID_Consulta idconsulta, c.Desc_Pregunta descconsulta, c.F_Inicio finiconsulta, c.F_Final ffinconsulta, c.H_Inicio hiniconsulta, c.H_Final hfinconsulta, v.ID_Usuario iduser FROM Votaciones v, Opcion o, Consulta c WHERE v.ID_Opcion = o.ID_Opcion AND o.ID_Consulta = c.ID_Consulta AND c.ID_Consulta= ? AND v.ID_Usuario = ?";
+							$query2 = $con->prepare($qstr2);
+							$r2 = $query2->execute([$row['ID_Consulta'],$x]);
+							$row2 = $query2->fetch();
+							
+							if(isset($row2['iduser'])){
+								if ($_SESSION['userid'] == $row2['iduser']){
+									echo '<tr style="color:green;font-weight:bold">';
+								}else{
+									echo '<tr>';
+								}
+							}
+							
 							echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
 							echo '<td>'.$row['F_Inicio'].'</td>';
 							echo '<td>'.$row['F_Final'].'</td>';
+							echo '<td>'.$row['H_Inicio'].'</td>';
+							echo '<td>'.$row['H_Final'].'</td>';
 							echo '<td style="text-align:center" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
 							echo '</tr>';
 							$row = $query->fetch();
 						}
 					?>
+					
+				
 				</table>
 			</div>
 	</section>

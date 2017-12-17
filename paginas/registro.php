@@ -213,9 +213,12 @@
 	<section class="container">
 		<div class="main-container">
 			<div class="workin">
-				<form action ="registro.php" method="POST">
-					<input type="text" name="user" placeholder="Usuario"></input>
-					<input type="text" name="password" placeholder="Contraseña"></input>
+				<form action ="enviar-registro.php" method="POST">
+					<input type="text" name="nombre" placeholder="Nombre"></input>
+					<input type="text" name="apellido" placeholder="Apellido"></input>
+					<input type="text" name="user" placeholder="Usuario" required></input>
+					<input type="text" name="password" placeholder="Contraseña" required></input>
+					<input type="text" name="email" value="<?php echo $_GET['email'];?>"</input>
 					<button type="submit" name="registrar" value="registrar">Registro</button>
 					</form>
 			</div>
