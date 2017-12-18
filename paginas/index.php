@@ -115,7 +115,10 @@ form.login div input[type="submit"] {
 	<?php
 session_start();
 include_once('conexion.php');
+
 function verificar_login($user,$password,$con) {
+	$password = hash('sha256',$password);
+	echo $password;
 	$qstr = "SELECT * FROM Usuario WHERE Usuario = '$user' and Contrasena = '$password'";
 	$query = $con->prepare( $qstr );
   	$query->execute();

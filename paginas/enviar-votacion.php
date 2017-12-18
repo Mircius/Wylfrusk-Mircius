@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once('conexion.php');
+$password = $_POST['password'];
+AES_ENCRYPT(string,key_string); 
 $check = $_POST['check'];
 $usuario = $_SESSION['userid'];
 $qstr= "INSERT INTO `Votaciones`(`ID_Opcion`,`ID_Usuario`) VALUES ($check,$usuario)";
