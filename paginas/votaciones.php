@@ -213,7 +213,7 @@
 						$row = $query->fetch();
 					}
 					?>
-					
+					<input type="password" name="password" required>
 					<button type="submit" name="respuesta" value="respuesta">Enviar respuesta</button>
 					</form>
 				</div>

@@ -242,6 +242,7 @@ session_start();
 						$query->execute();
 						$row = $query->fetch();
 						while ($row) {
+							//(AES_ENCRYPT('$check','$password')
 							
 							$qstr2 = "SELECT c.ID_Consulta idconsulta, c.Desc_Pregunta descconsulta, c.F_Inicio finiconsulta, c.F_Final ffinconsulta, c.H_Inicio hiniconsulta, c.H_Final hfinconsulta, v.ID_Usuario iduser FROM Votaciones v, Opcion o, Consulta c WHERE v.ID_Opcion = o.ID_Opcion AND o.ID_Consulta = c.ID_Consulta AND c.ID_Consulta= ? AND v.ID_Usuario = ?";
 							$query2 = $con->prepare($qstr2);
