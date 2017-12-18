@@ -4,7 +4,10 @@ include_once('conexion.php');
 $password = $_POST['password'];
 $check = $_POST['check'];
 $usuario = $_SESSION['userid'];
-$qstr= "INSERT INTO `Votaciones`(`ID_Opcion`,`ID_Usuario`) VALUES (AES_ENCRYPT('$check','$password'),$usuario)";
+$idconsulta = $_POST['idconsulta'];
+//$qstr= "INSERT INTO `Votaciones`(`ID_Opcion`,`ID_Usuario`,`ID_Consulta`) VALUES (AES_ENCRYPT('$check','$password'),$usuario,$idconsulta)";
+$qstr= "INSERT INTO `Votaciones`(`ID_Opcion`,`ID_Usuario`,`ID_Consulta`) VALUES ('$check',$usuario,$idconsulta)";
+
 $query=$con->prepare($qstr);
 $query->execute();
 $e= $query->errorInfo();

@@ -3,10 +3,9 @@
 <head>
 	<title>Main</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 	<style>
 		html, body{
-			font-family: 'Roboto Condensed', sans-serif;
+			font-family: 'Barlow Semi Condensed', sans-serif;
 			height: 100%;
 		}
 		.navbar-container{
@@ -33,7 +32,7 @@
 		.footer-container{
 			margin-top: 20px;
 			width: 90%;
-			height: 3em;
+			height: auto;
 			margin-left: auto;
 			margin-right: auto;
 			display: block;
@@ -87,9 +86,7 @@
 		  padding:5px;
 		  width: 100%;
 		  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
-
 		}
-		 
 		th {
 		  color:#D5DDE5;;
 		  background:#1b1e24;
@@ -166,6 +163,15 @@
 			width: auto;
 			height:200px;
 		}
+		.workin{
+			margin-left: auto;
+			margin-right: auto;
+			display:block;
+			width: 60%;
+			height: 90%;
+			padding-top:1em;
+		}
+		
 
 	</style>
 </head>
@@ -180,7 +186,7 @@
 	<section class="navbar">
 		<div class="navbar-container">
 			<div class="navbar-option">
-				<a href=""><i class="fa fa-home"></i>  Home</a>
+				<a href="home.php"><i class="fa fa-home"></i>  Home</a>
 			</div>
 			<div class="headerDivider"></div>
             <div class="navbar-option">
@@ -209,20 +215,24 @@
 	</section>
 	<section class="container">
 		<div class="main-container">
-			<div class="workin">
-				<?php 
-					if (isset($_SESSION['user'])){
-						echo '<h1> Invitación </h1>';
-						echo '<form action="enviar.php" method="POST"><input type="text" name="correo" required><input type="text" name="idconsulta" style="display:none" value="'.$_GET['preguntaid'].'"><input type="submit"></form>';
-
-					}else{
-						echo '<h1>Inicia sesión para invitar a alguien</h1>';
-					};
-
-				?>
-				
-
-			</div>
+			<div class="QA">
+					<?php
+					$id = $_GET['id'];
+					$qstr = "SELECT COUNT(ID_Opcion) FROM Consulta c, Opcion o, Votaciones v WHERE c.ID_Consulta = '$id' AND o.ID_Consulta = c.ID_Consulta";
+					$query = $con->prepare( $qstr );
+					$query->execute();
+					$row = $query->fetch();
+					while ($row) {
+						$consultaid = $row['ID_Consulta'];
+						$consultadesc = $row['Desc_Pregunta'];
+						$consultaidopcion = $row['ID_Opcion'];
+						$consultadescripcion = $row['Descripcion'];
+						//unfinished
+						$row = $query->fetch();
+					}
+					
+					?>
+				</div>
 		</div>
 	</section>
 	<section class="footer">

@@ -563,8 +563,11 @@ if(isset($_POST['Enviar'])){
 			<div class="navbar-option-dos">
 				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
-					echo $_SESSION['user'];
-				}; ?></a>
+					$userid = $_SESSION['userid'];
+					$userIsAdmin = $_SESSION['admin'];
+					echo "<span id='$userid' name='usuario' admin='$userIsAdmin'>".$_SESSION['user']."</span>";
+				};
+				?></a>
 			</div>
 
 		</div>

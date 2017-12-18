@@ -205,20 +205,34 @@
 			<div class="navbar-option-dos">
 				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
-					echo $_SESSION['user'];
-				}; ?></a>
+					$userid = $_SESSION['userid'];
+					$userIsAdmin = $_SESSION['admin'];
+					echo "<span id='$userid' name='usuario' admin='$userIsAdmin'>".$_SESSION['user']."</span>";
+				};
+				?></a>
 			</div>
 		</div>
 	</section>
 	<section class="container">
 		<div class="main-container">
-			<div class="workin">
-				<form action ="registro.php" method="POST">
-					<input type="text" name="user" placeholder="Usuario"></input>
-					<input type="text" name="password" placeholder="Contraseña"></input>
-					<button type="submit" name="registrar" value="registrar">Registro</button>
-					</form>
-			</div>
+			<div class="QA">
+					<?php
+					$id = $_GET['id'];
+					$qstr = "SELECT COUNT(*) FROM Consulta c, Opcion o, Votaciones v WHERE c.ID_Consulta = '$id' AND o.ID_Consulta = c.ID_Consulta";
+					$query = $con->prepare( $qstr );
+					$query->execute();
+					$row = $query->fetch();
+					while ($row) {
+						$consultaid = $row['ID_Consulta'];
+						$consultadesc = $row['Desc_Pregunta'];
+						$consultaidopcion = $row['ID_Opcion'];
+						$consultadescripcion = $row['Descripcion'];
+						echo '<input type="radio" name="check" value="'.$consultaidopcion.'" id="'.$consultaidopcion.'">'.$consultadescripcion.'<br>';
+						$row = $query->fetch();
+					}
+					
+					?>
+				</div>
 		</div>
 	</section>
 	<section class="footer">

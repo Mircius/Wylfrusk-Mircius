@@ -154,7 +154,7 @@ if(!isset($_SESSION['userid']))
             $_SESSION['userid'] = $GLOBALS['result']['ID_Usuario'];
             $_SESSION['user'] = $_POST['user'];
 			$_SESSION['admin'] = $GLOBALS['result']['Administrador'];
-            header("location:lista-preguntas.php");
+            header("location:home.php");
         }
         else
         {

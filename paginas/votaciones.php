@@ -173,8 +173,11 @@
 			<div class="navbar-option-dos">
 				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
-					echo $_SESSION['user'];
-				}; ?></a>
+					$userid = $_SESSION['userid'];
+					$userIsAdmin = $_SESSION['admin'];
+					echo "<span id='$userid' name='usuario' admin='$userIsAdmin'>".$_SESSION['user']."</span>";
+				};
+				?></a>
 			</div>
 		</div>
 	</section>
@@ -212,6 +215,9 @@
 						echo '<input type="radio" name="check" value="'.$consultaidopcion.'" id="'.$consultaidopcion.'">'.$consultadescripcion.'<br>';					
 						$row = $query->fetch();
 					}
+					?>
+					<?php
+					echo "<input type='hidden' name='idconsulta' value=".$_GET['id'].">";
 					?>
 					<input type="password" name="password" required>
 					<button type="submit" name="respuesta" value="respuesta">Enviar respuesta</button>

@@ -201,8 +201,8 @@ session_start();
             <div class="navbar-option">
 				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
-			<div class="headerDivider"></div>
-			<div class="navbar-option">
+			<div class="headerDivider hiddentrigger"></div>
+			<div class="navbar-option hiddentrigger">
 				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 			
@@ -215,8 +215,7 @@ session_start();
 				if (isset($_SESSION['user'])){
 					$userid = $_SESSION['userid'];
 					$userIsAdmin = $_SESSION['admin'];
-					echo "<span id='$userid' name='$userIsAdmin'>".$_SESSION['user']."</span>";
-					
+					echo "<span id='$userid' name='usuario' admin='$userIsAdmin'>".$_SESSION['user']."</span>";
 				};
 				?></a>
 			</div>
@@ -224,14 +223,57 @@ session_start();
 	</section>
 	<section class="container">
 			<div class="workin">
-				<table class="table-fill">
+				<!--<h1 style="text-align: center">Consultas en las que estas invitado:</h1>-->
+				<table class="table-fill adminhiddentrigger">
+					<tr>
+						<th>Email</th>
+						<th>Descripción pregunta</th>
+					</tr>
+				<?php 
+					$x = $_SESSION['userid'];
+					
+						$qstr = "SELECT i.ID_Consulta idconsulta, u.ID_Usuario user, u.Email email, c.Desc_Pregunta pregunta FROM Usuario u , Invitacion i, Consulta c WHERE u.ID_Usuario = i.ID_Usuario AND i.ID_Consulta = c.ID_Consulta;";
+
+						$query = $con->prepare( $qstr );
+						
+
+						$r = $query->execute();
+						$row = $query->fetch();
+
+
+						while ($row) {
+							//(AES_ENCRYPT('$check','$password')
+							
+							$qstr2 = "SELECT c.ID_Consulta idconsulta, c.Desc_Pregunta descconsulta, c.F_Inicio finiconsulta, c.F_Final ffinconsulta, c.H_Inicio hiniconsulta, c.H_Final hfinconsulta, v.ID_Usuario iduser FROM Votaciones v, Opcion o, Consulta c WHERE v.ID_Opcion = o.ID_Opcion AND o.ID_Consulta = c.ID_Consulta AND c.ID_Consulta= ? AND v.ID_Usuario = ?";
+							$query2 = $con->prepare($qstr2);
+							$r2 = $query2->execute([$row['idconsulta'],$x]);
+							$row2 = $query2->fetch();
+							
+							if(isset($row2['iduser'])){
+								if ($_SESSION['userid'] == $row2['iduser']){
+									echo '<tr style="color:green;font-weight:bold" onclick="onClickedIrAVotacionesConId(this)" id="'.$row['idconsulta'].'">';
+								}else{
+									echo '<tr>';
+								}
+							}
+						if ($row['user'] == $x){
+							echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['idconsulta'].'">'.$row['email'].'</td>';
+							echo '<td>'.$row['pregunta'].'</td>';
+							echo '</tr>';
+						}
+							$row = $query->fetch();
+						}
+
+				?>
+				</table>
+				<table class="table-fill hiddentrigger">
 					<tr>
 						<th>Descripción pregunta</th>
 						<th>Fecha inicio</th>
 						<th>Fecha final</th>
 						<th>Hora inici</th>
 						<th>Hora final</th>
-						<th>Comparteix</th>
+						<th class="hiddentrigger">Comparteix</th>
 					</tr>
 					<?php 
 						$x = $_SESSION['userid'];
@@ -242,27 +284,14 @@ session_start();
 						$query->execute();
 						$row = $query->fetch();
 						while ($row) {
-							//(AES_ENCRYPT('$check','$password')
 							
-							$qstr2 = "SELECT c.ID_Consulta idconsulta, c.Desc_Pregunta descconsulta, c.F_Inicio finiconsulta, c.F_Final ffinconsulta, c.H_Inicio hiniconsulta, c.H_Final hfinconsulta, v.ID_Usuario iduser FROM Votaciones v, Opcion o, Consulta c WHERE v.ID_Opcion = o.ID_Opcion AND o.ID_Consulta = c.ID_Consulta AND c.ID_Consulta= ? AND v.ID_Usuario = ?";
-							$query2 = $con->prepare($qstr2);
-							$r2 = $query2->execute([$row['ID_Consulta'],$x]);
-							$row2 = $query2->fetch();
 							
-							if(isset($row2['iduser'])){
-								if ($_SESSION['userid'] == $row2['iduser']){
-									echo '<tr style="color:green;font-weight:bold">';
-								}else{
-									echo '<tr>';
-								}
-							}
-							
-							echo '<td onclick="onClickedIrAVotacionesConId(this)" id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
+							echo '<td id="'.$row['ID_Consulta'].'">'.$row['Desc_Pregunta'].'</td>';
 							echo '<td>'.$row['F_Inicio'].'</td>';
 							echo '<td>'.$row['F_Final'].'</td>';
 							echo '<td>'.$row['H_Inicio'].'</td>';
 							echo '<td>'.$row['H_Final'].'</td>';
-							echo '<td style="text-align:center" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
+							echo '<td style="text-align:center" class="hiddentrigger" onclick="onClickedIrAInvitacionesConId(this)" id="'.$row['ID_Consulta'].'"> <i class="fa fa-envelope-o"></i></td>';
 							echo '</tr>';
 							$row = $query->fetch();
 						}
@@ -279,5 +308,22 @@ session_start();
 			</div>
 		</div>
 	</section>
+	<script>
+	function ifAdminHideThings(){
+		var x = document.querySelector('span[name=usuario]').getAttribute('admin');
+		if (x==='0'){
+			var hidden = document.querySelectorAll('.hiddentrigger');
+			for (var i =0; i < hidden.length ; i++){
+				hidden[i].style.display="none";
+			}
+		}else{
+			var adminhidden= document.querySelectorAll('.adminhiddentrigger');
+			for (var i =0; i < adminhidden.length ; i++){
+				adminhidden[i].style.display="none";
+			}
+		}
+	}
+	ifAdminHideThings();
+	</script>
 </body>
 </html>
