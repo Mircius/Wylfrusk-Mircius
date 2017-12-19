@@ -13,7 +13,7 @@ Descripció de la funcionalitat:
 Descripció de la funció:
 [Parametres d'entrada]:
 [Valor de retorn]:
-Afegir comentaris a pasos complexos.
+[Afegir comentaris a pasos complexos].
 	-->
 	<style>
 		html, body{
