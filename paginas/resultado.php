@@ -203,7 +203,7 @@
 			</div>
 			<div class="headerDivider-dos"></div>
 			<div class="navbar-option-dos">
-				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
+				<a><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					$userid = $_SESSION['userid'];
 					$userIsAdmin = $_SESSION['admin'];
@@ -227,7 +227,7 @@
 						$consultadesc = $row['Desc_Pregunta'];
 						$consultaidopcion = $row['ID_Opcion'];
 						$consultadescripcion = $row['Descripcion'];
-						//unfinished
+						
 						$row = $query->fetch();
 					}
 					

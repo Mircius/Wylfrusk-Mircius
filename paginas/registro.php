@@ -221,7 +221,7 @@
 					<input type="text" name="apellido" placeholder="Apellido"></input>
 					<input type="text" name="user" placeholder="Usuario" required></input>
 					<input type="text" name="password" placeholder="Contraseña" required></input>
-					<input type="text" name="email" value="<?php echo $_GET['email'];?>"</input>
+					<input type="text" name="email" placeholder="Email" value="<?php if(isset($_GET['email'])){ echo $_GET['email'];}?>" </input>
 					<button type="submit" name="registrar" value="registrar">Registro</button>
 					</form>
 			</div>

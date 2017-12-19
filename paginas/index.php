@@ -14,20 +14,19 @@
 			width: 100%;
 			height: 100%;
 			background-size: cover;
-			padding-top: 10%;
 			box-sizing: border-box;
 		}
 		.formu{
-			color:white;
-			background-color: blue;
+			color:rgba(110,110,110,0.9);
+			background-color:rgba(255,255,255,0.8);;
 			margin-left: auto;
 			margin-right: auto;
 			margin-top: auto;
 			display: block;
 			width: 30em;
-			height: 22em;
+			height: 35em;
 			border-radius: 0.4em;
-			box-shadow: 15px 15px 20px #999999;
+			box-shadow: 0px 0px 20px #111111;
 
 			position:absolute;
 			left: 50%;
@@ -45,6 +44,8 @@
 
 		}
 		.formu input{
+			background-color: rgba(110,110,110,0.9);
+			color:white;
 			margin-top:1.2em;
 			margin-bottom:1.2em;
 			margin-left: auto;
@@ -55,9 +56,9 @@
 			width: 85%;
 		}
 		.formu button{
-			border:solid 2px white;
+			border:solid 2px rgba(110,110,110,0.9);
 			background-color: rgba(1,1,1,0);
-			color:white;
+			color:rgba(110,110,110,0.9);
 			padding:1em;
 			padding-left: 1.5em;
 			padding-right: 1.5em;
@@ -66,13 +67,40 @@
 			display: block;
 		}
 		.formu button:hover{
-			background-color: rgba(255,255,255,0.2);
+			background-color: rgba(110,110,110,0.2);
 		}
 		.formu button:active{
 			background-color: rgba(255,255,255,0.8);
 			color:black;
 		}
+		.logo{
+			display:block;
+			margin-left:auto;
+			margin-right:auto;
+			margin:10px;
+		}
+		.logo img{
+			display:block;
+			margin-left:auto;
+			margin-right:auto;
+			width: 150px;
+			height: auto;
+			position:relative;
+		}
+		
 
+		.banner{
+			display:block;
+			margin-left: auto;
+			margin-right:auto;
+		}
+		.banner img{
+			display:block;
+			margin-left: auto;
+			margin-right:auto;
+			width: auto;
+			height:200px;
+		}
 		/*----------------------------------------------------------------------------------
 		form.login {
     background: none repeat scroll 0 0 #F1F1F1;
@@ -163,7 +191,11 @@ if(!isset($_SESSION['userid']))
     }
 ?>
 	<section class="container">
+		
 		<form action="" method="POST" class="formu">
+			<div class="logo">
+			<img src="img/projectvota-01-01.png">
+		</div>
 			<h1>Inicio de sesión</h1>
 			<label><b>Nombre de usuario</b></label>
 			<input type="text" name="user" required>

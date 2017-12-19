@@ -160,8 +160,8 @@
             <div class="navbar-option">
 				<a href="lista-preguntas.php"><i class="fa fa-folder-open"></i>  Lista preguntas</a>
 			</div>
-			<div class="headerDivider"></div>
-			<div class="navbar-option">
+			<div class="headerDivider hiddentrigger"></div>
+			<div class="navbar-option hiddentrigger">
 				<a href="consultas.php"><i class="fa fa-plus-square-o"></i>  Crear pregunta</a>
 			</div>
 
@@ -171,7 +171,7 @@
 			</div>
 			<div class="headerDivider-dos"></div>
 			<div class="navbar-option-dos">
-				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
+				<a><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					$userid = $_SESSION['userid'];
 					$userIsAdmin = $_SESSION['admin'];
@@ -219,8 +219,8 @@
 					<?php
 					echo "<input type='hidden' name='idconsulta' value=".$_GET['id'].">";
 					?>
-					<input type="password" name="password" required>
-					<button type="submit" name="respuesta" value="respuesta">Enviar respuesta</button>
+					<p>Contraseña para validar voto:</p><input type="password" name="password" required>
+					<button type="submit" name="respuesta" value="respuesta">Enviar voto</button>
 					</form>
 				</div>
 			</div>
@@ -233,5 +233,22 @@
 			</div>
 		</div>
 	</section>
+	<script>
+	function ifAdminHideThings(){
+		var x = document.querySelector('span[name=usuario]').getAttribute('admin');
+		if (x==='0'){
+			var hidden = document.querySelectorAll('.hiddentrigger');
+			for (var i =0; i < hidden.length ; i++){
+				hidden[i].style.display="none";
+			}
+		}else{
+			var adminhidden= document.querySelectorAll('.adminhiddentrigger');
+			for (var i =0; i < adminhidden.length ; i++){
+				adminhidden[i].style.display="none";
+			}
+		}
+	}
+	ifAdminHideThings();
+	</script>
 </body>
 </html>

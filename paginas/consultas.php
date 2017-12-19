@@ -119,8 +119,8 @@
 		include_once ("conexion.php");
 		$userid = $_SESSION['userid'];
 
-function enviarFormulario($consulta,$userid,$fechaInicio,$fechaFinal,$con){
-	$qstr= "INSERT INTO `Consulta`(`Desc_Pregunta`, `ID_Usuario`, `F_Inicio`, `F_Final`)  VALUES ('$consulta','$userid','$fechaInicio','$fechaFinal' )";
+function enviarFormulario($consulta,$userid,$fechaInicio,$fechaFinal,$fechaInicioHora,$fechaFinalHora,$con){
+	$qstr= "INSERT INTO `Consulta`(`Desc_Pregunta`, `ID_Usuario`, `F_Inicio`, `F_Final`,`H_Inicio`,`H_Final`)  VALUES ('$consulta','$userid','$fechaInicio','$fechaFinal','$fechaInicioHora','$fechaFinalHora')";
 	$query=$con->prepare($qstr);
 	$query->execute();
 	$e= $query->errorInfo();
@@ -153,7 +153,7 @@ function cojerRespuesta($lista){
 
 
 if(isset($_POST['Enviar'])){
-		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['fechaInicio'],$_POST['fechaFinal'],$con);
+		$idConsulta=enviarFormulario($_POST['consulta'],$userid,$_POST['fechaInicio'],$_POST['fechaFinal'],$_POST['fechaInicioHora'],$_POST['fechaFinalHora'],$con);
 		$listaRespuestas = cojerRespuesta($_POST);
 		enviarFormularioRespuestas($idConsulta,$listaRespuestas,$con);
 	
@@ -457,8 +457,9 @@ if(isset($_POST['Enviar'])){
 	}
 	function botonDisableEnable(e){
 		var botonEnviar = document.querySelector('body > section.container > div > div > form > input[type="submit"]');
+		console.log(e);
 		if (e==true){
-			botonEnviar.disabled= true;
+			botonEnviar.disabled = true;
 		}else{
 			botonEnviar.disabled = false;
 		}
@@ -537,34 +538,31 @@ if(isset($_POST['Enviar'])){
 
 		fechaInicio = fechaInicio[0] + "-" + fechaInicio[1] + "-" + fechaInicio[2];
 		fechaFinal = fechaFinal[0] + "-" + fechaFinal[1] + "-" + fechaFinal[2];
-
-		   if (fechaInicio < fechaHoy){
+		var triggerHoras = false;
+		   if (fechaInicio <= fechaHoy){
 				alert("La fecha de inicio no puede ser anterior a hoy");
 		   }
 		   if (fechaFinal < fechaHoy){
 				alert("La fecha final no puede ser anterior a hoy");
 		   }
-		   if (fechaInicio == fechaHoy){
-	   		   if (fechaInicioHora[0]+4 > fechaFinalHora[0]){
-	   		   		alert("Tiene que haber un minimo de cuatro horas de diferencia")
-	   		   }
-		   }
 		   if(fechaInicio == fechaFinal){
 		   	 if (fechaInicioHora[0]+4 > fechaFinalHora[0]){
 	   		   		alert("Tiene que haber un minimo de cuatro horas de diferencia")
+	   		   		triggerHoras = true;
 	   		   }
 		   }
-		   if (fechaInicio >= fechaFinal){
+		   if (fechaInicio > fechaFinal){
 				alert("La fecha final tiene que ser posterior a la fecha inicio");
 		   }
-		   if (fechaInicioMasUno >= fechaFinal){
-	   		   alert("La fecha de final no puede estar tan proxima a la de inicio");
-		   }
-		   if(fechaInicio <= fechaHoy && fechaInicio >= fechaFinal && fechaInicioMasUno >= fechaFinal){
-				botonDisableEnable(true);
-			}else{
-				botonDisableEnable(false);
-			}
+		  
+		 //   //if(fechaInicio <= fechaHoy && fechaInicio > fechaFinal && fechaInicioHora[0]+4 > fechaFinalHora[0])
+		 //   	if (fechaInicio < fechaHoy && fechaFinal < fechaHoy && fechaInicio > fechaFinal){
+			// 	botonDisableEnable(true);
+			// 	console.log("Jamon");
+			// }else{
+			// 	botonDisableEnable(false);
+			// 	console.log("JamonFalse");
+			// }
 		}
 </script>
 <div class="logo">
@@ -589,7 +587,7 @@ if(isset($_POST['Enviar'])){
 			</div>
 			<div class="headerDivider-dos"></div>
 			<div class="navbar-option-dos">
-				<a href="lista-consultas-usuario.php"><i class="fa fa-hand-spock-o"></i> <?php 
+				<a><i class="fa fa-hand-spock-o"></i> <?php 
 				if (isset($_SESSION['user'])){
 					$userid = $_SESSION['userid'];
 					$userIsAdmin = $_SESSION['admin'];
