@@ -165,7 +165,6 @@ if(isset($_POST['Enviar'])){
 }
 
 	?>
-
 <script>
 	   var count = 1;
 	   var crea = false;
@@ -232,7 +231,7 @@ if(isset($_POST['Enviar'])){
 		this.parent (div)*/
 
 	}
-
+	
 	function crearBotonSubirRespuesta(div){
 		var button = document.createElement('BUTTON');
 		var buttonText = document.createTextNode('Subir');
@@ -316,14 +315,18 @@ if(isset($_POST['Enviar'])){
 		var labelInicio = document.createElement('labelInicio')
 		var labelTextInicio = document.createTextNode('Introduce la fecha de inicio: ');
 	    var inputInicio = document.createElement('INPUT');
+	    var inputInicioHora = document.createElement('INPUT');
+	    inputInicioHora.setAttribute("type","time");
+	    inputInicioHora.setAttribute("name","fechaInicioHora");
+	    inputInicioHora.setAttribute("value","00:00");
+	   	inputInicioHora.setAttribute("step","900");
 	   	labelInicio.appendChild(labelTextInicio);
 	    inputInicio.setAttribute("type", "date");
 	   	inputInicio.setAttribute("name", "fechaInicio");
 	   	form.appendChild(br);
 	   	form.appendChild(labelInicio);
 	    form.appendChild(inputInicio);
-
-
+	    form.appendChild(inputInicioHora);
 	}
 
 	function crearFechaFinal(form){
@@ -331,12 +334,19 @@ if(isset($_POST['Enviar'])){
 		var labelFinal = document.createElement('labelFinal')
 		var labelTextFinal = document.createTextNode('Introduce la fecha final: ');
 	    var inputFinal = document.createElement('INPUT');
+	    var inputFinalHora = document.createElement('INPUT');
+	    inputFinalHora.setAttribute("type","time");
+	    inputFinalHora.setAttribute("name","fechaFinalHora");
+	   	inputFinalHora.setAttribute("value","00:00");
+	   	inputFinalHora.setAttribute("step","900");
 	   	labelFinal.appendChild(labelTextFinal);
 	    inputFinal.setAttribute("type", "date");
 	   	inputFinal.setAttribute("name", "fechaFinal");
 	   	form.appendChild(br);
 	   	form.appendChild(labelFinal);
 	    form.appendChild(inputFinal);
+	    form.appendChild(inputFinalHora);
+
 	}
 	function crearBotonRespuesta(form){
 		var br = document.createElement('br'); 
@@ -463,10 +473,11 @@ if(isset($_POST['Enviar'])){
 			for (var i = 0; i < inputsFecha.length; i++) {
 				inputsFecha[i].onchange = function(){
 					var fechaUno = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(6)');
-					var fechaDos = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(9)');
+					var fechaDos = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(10)');
 					if (fechaUno.value !== "" && fechaDos.value !== ""){
 						fecha();
 					}
+
 				};
 			}
 	}
@@ -476,7 +487,7 @@ if(isset($_POST['Enviar'])){
 			childs[i].onblur= "";
 		}
 		for (var i = 0; i < childs.length; i++) {
-			childs[i].onblur= function(){
+			childs[i].onblur= function(event){
 				if (event.target.value==""){
 					//dar clase
 					event.target.classList.add('boxShadowParaVacioRojo');
@@ -501,7 +512,7 @@ if(isset($_POST['Enviar'])){
         var fechaHoy = year + "-" + month + "-" + day;
 		var fechaInicio = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(6)').value;
 		fechaInicio = fechaInicio.split("-");
-		var fechaFinal = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(9)').value;
+		var fechaFinal = document.querySelector('body > section.container > div > div > form > input[type="date"]:nth-child(10)').value;
 		fechaFinal = fechaFinal.split("-");
 		var fechaInicioMasUno = new Date(fechaInicio[0],parseInt(fechaInicio[1])-1,parseInt(fechaInicio[2])+1);
 		var day2 = fechaInicioMasUno.getDate();
@@ -514,6 +525,16 @@ if(isset($_POST['Enviar'])){
 		//diaajuste = diaajuste +1;
 		//fechaInicioMasUno[2]= diaajuste.toString();
 
+		var fechaInicioHora = document.querySelector("input[name='fechaInicioHora']").value;
+		fechaInicioHora = fechaInicioHora.split(":");
+		var fechaFinalHora = document.querySelector("input[name='fechaFinalHora']").value;
+		fechaFinalHora = fechaFinalHora.split(":");
+		fechaInicioHora[0] = parseInt(fechaInicioHora[0]);
+		fechaInicioHora[1] = parseInt(fechaInicioHora[1]);
+		fechaFinalHora[0] = parseInt(fechaFinalHora[0]);
+		fechaFinalHora[1] = parseInt(fechaFinalHora[1]);
+
+
 		fechaInicio = fechaInicio[0] + "-" + fechaInicio[1] + "-" + fechaInicio[2];
 		fechaFinal = fechaFinal[0] + "-" + fechaFinal[1] + "-" + fechaFinal[2];
 
@@ -524,7 +545,14 @@ if(isset($_POST['Enviar'])){
 				alert("La fecha final no puede ser anterior a hoy");
 		   }
 		   if (fechaInicio == fechaHoy){
-	   		   alert("La fecha de inicio no puede ser hoy");
+	   		   if (fechaInicioHora[0]+4 > fechaFinalHora[0]){
+	   		   		alert("Tiene que haber un minimo de cuatro horas de diferencia")
+	   		   }
+		   }
+		   if(fechaInicio == fechaFinal){
+		   	 if (fechaInicioHora[0]+4 > fechaFinalHora[0]){
+	   		   		alert("Tiene que haber un minimo de cuatro horas de diferencia")
+	   		   }
 		   }
 		   if (fechaInicio >= fechaFinal){
 				alert("La fecha final tiene que ser posterior a la fecha inicio");
