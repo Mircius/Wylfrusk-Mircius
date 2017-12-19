@@ -173,20 +173,7 @@ Descripció de la funcionalitat: Este codigo permite visualizar las consultas di
 		}
 
 	</style>
-	<script>
-	function onClickedIrAInvitacionesConId(p){
-		var preguntaid = p.id;
-		if (document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text == ""){
-			alert('No puedes invitar a alguien sin iniciar sesión');
-		}else{
-			window.location.href = "invitaciones.php?preguntaid="+preguntaid;
-		}
-	}
-		function onClickedIrAVotacionesConId(e){
-			var id = e.id;
-			window.location.href = "votaciones.php?id="+id;
-		}
-</script>
+
 </head>
 <body>
 <?php
@@ -329,6 +316,19 @@ session_start();
 		}
 	}
 	ifAdminHideThings();
-	</script>
+	function onClickedIrAInvitacionesConId(p){
+		var preguntaid = p.id;
+		if (document.querySelector('body > section.navbar > div > div:nth-child(8) > a').text == ""){
+			alert('No puedes invitar a alguien sin iniciar sesión');
+		}else{
+			window.location.href = "invitaciones.php?preguntaid="+preguntaid;
+		}
+	}
+		function onClickedIrAVotacionesConId(e){
+			var id = e.id;
+			window.location.href = "votaciones.php?id="+id;
+		}
+</script>
+
 </body>
 </html>
