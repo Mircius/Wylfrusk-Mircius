@@ -4,7 +4,17 @@
 	<title>Main</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+	<!-- 
+Nom del fitxer:
+Data de creació:
+Nom del creador:
+Descripció de la funcionalitat:
 
+Descripció de la funció:
+[Parametres d'entrada]:
+[Valor de retorn]:
+Afegir comentaris a pasos complexos.
+	-->
 	<style>
 		html, body{
 			font-family: 'Roboto Condensed', sans-serif;
