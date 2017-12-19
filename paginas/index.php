@@ -1,3 +1,7 @@
+<!-- Nom del fitxer: index.php
+Data de creació: 21/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo muestra el login y verifica la contraseña y el usuario. -->
 <!DOCTYPE html>
 <html>
 <head>

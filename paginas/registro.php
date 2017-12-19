@@ -1,3 +1,7 @@
+<!-- Nom del fitxer: registro.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo permite registrar un usuario en la aplicacion. -->
 <!DOCTYPE html>
 <html>
 <head>

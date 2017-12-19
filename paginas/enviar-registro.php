@@ -1,3 +1,8 @@
+<!-- Nom del fitxer: enviar-registro.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo permite insertar los datos de la creacion de usuarios. -->
+
 <?php
 session_start();
 include_once('conexion.php');

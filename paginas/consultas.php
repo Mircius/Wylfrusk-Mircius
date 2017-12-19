@@ -1,3 +1,8 @@
+<!-- Nom del fitxer: consultas.php
+Data de creació: 23/11/2017
+Nom del creador: Sergi Coma
+Descripció de la funcionalitat: -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -179,6 +184,8 @@ if(isset($_POST['Enviar'])){
 	   var count = 1;
 	   var crea = false;
 
+
+// Descripció de la funció: Permite crear el formulario del cual con otras funciones iremos añadiendo todos los inputs y botones.
 	function crearFormulario() { 
 	   var label = document.createElement('label');
 	   var textarea = document.createElement('TEXTAREA');
@@ -201,6 +208,8 @@ if(isset($_POST['Enviar'])){
 	   required();
 
 	}
+	// Descripció de la funció: Permite crear el boton para borrar una respuesta individualmente.
+	// [Parametres d'entrada]: El elemento div que engloba el input de la respuesta.
 	function crearBotonBorrarUnaRespuesta(div){
 		var br = document.createElement('br');
 		var button = document.createElement('BUTTON');
@@ -212,6 +221,9 @@ if(isset($_POST['Enviar'])){
 
 
 	}
+	// Descripció de la funció: Añade la logica para eliminar una respuesta individualmente.
+	// [Parametres d'entrada]: El evento onclick.
+
 	function botonBorrarUnaRespuesta(event){
 		event.currentTarget.parentNode.remove();
 		var div = document.querySelectorAll("div[name='divaso']");
@@ -230,18 +242,12 @@ if(isset($_POST['Enviar'])){
 			borrarButtonEnviar();
 			crea = false;
 
-
 		}
-
-		/*var target = this;
-		if(is Firefox){
-			target = event.currentTarget;
-		}
-
-		this.parent (div)*/
 
 	}
-	
+	// Descripció de la funció: Permite crear el boton que mueve hacia arriba la respuesta elegida.
+	// [Parametres d'entrada]: El elemento div que engloba el input de la respuesta.
+
 	function crearBotonSubirRespuesta(div){
 		var button = document.createElement('BUTTON');
 		var buttonText = document.createTextNode('Subir');
@@ -251,6 +257,9 @@ if(isset($_POST['Enviar'])){
 		button.setAttribute("onclick","botonSubirRespuesta(event)");
 		div.appendChild(button);
 	}
+	// Descripció de la funció: Añade la logica para mover hacia arriba la respuesta elegida.
+	// [Parametres d'entrada]: El evento onclick.
+
 	function botonSubirRespuesta(event){
 		var form = document.querySelector("form");
 		var divs = event.currentTarget.parentNode
@@ -273,19 +282,10 @@ if(isset($_POST['Enviar'])){
 		
 		}
 
-		
-		
-/*
-		divs.parentNode.replaceChild(divs.cloneNode(), anterior);*/
-
-
-
-
-
-
-
-
 	}
+	// Descripció de la funció: Permite crear el boton para bajar una respuesta.
+	// [Parametres d'entrada]: El elemento div que engloba el input de la respuesta.
+
 	function crearBotonBajarRespuesta(div){
 		var button = document.createElement('BUTTON');
 		var buttonText = document.createTextNode('Bajar');
@@ -295,6 +295,8 @@ if(isset($_POST['Enviar'])){
 		button.setAttribute("onclick","botonBajarRespuesta(event)");
 		div.appendChild(button);
 	}
+	// Descripció de la funció: Añade la logica para bajar una respuesta.
+	// [Parametres d'entrada]: El evento onclick.
 	function botonBajarRespuesta(event){
 		var form = document.querySelector("form");
 		var divs = event.currentTarget.parentNode
@@ -320,6 +322,9 @@ if(isset($_POST['Enviar'])){
 	function insertAfter(newNode, referenceNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
+	// Descripció de la funció: Permite crear la fecha inicio y la hora inicio del formulario.
+	// [Parametres d'entrada]: Es el elemento form.
+
 	function crearFechaInicio(form){
 		var br = document.createElement('br'); 
 		var labelInicio = document.createElement('labelInicio')
@@ -338,6 +343,9 @@ if(isset($_POST['Enviar'])){
 	    form.appendChild(inputInicio);
 	    form.appendChild(inputInicioHora);
 	}
+	// Descripció de la funció: Permite crear la fecha final y la hora final del formulario.
+	// [Parametres d'entrada]: Es el elemento form.
+
 
 	function crearFechaFinal(form){
 		var br = document.createElement('br'); 
@@ -358,6 +366,9 @@ if(isset($_POST['Enviar'])){
 	    form.appendChild(inputFinalHora);
 
 	}
+	// Descripció de la funció: Permite crear el boton para añadir una respuesta.
+	// [Parametres d'entrada]: Es el elemento form.
+
 	function crearBotonRespuesta(form){
 		var br = document.createElement('br'); 
 		var button = document.createElement('BUTTON');
@@ -370,6 +381,8 @@ if(isset($_POST['Enviar'])){
 		
 		
 	}
+	// Descripció de la funció: Añade la logica para añadir el boton de crear respuesta.
+
 	function buttonRespuesta(){
 		var div = document.createElement("div");
 		div.setAttribute("name","divaso");
@@ -405,7 +418,8 @@ if(isset($_POST['Enviar'])){
 	   	onChanged();
 		required();
 	}
-
+	// Descripció de la funció: Permite crear el boton para borrar todas las respuestas.
+	// [Parametres d'entrada]: Es el elemento form.
 	function crearBorrarRespuestas(form){
 		var br = document.createElement('br'); 
 		var buttonBorrar = document.createElement('BUTTON');
@@ -416,6 +430,8 @@ if(isset($_POST['Enviar'])){
 		buttonBorrar.setAttribute("onclick","BorrarRespuestas()")
 		workin.appendChild(buttonBorrar);
     }
+    // Descripció de la funció: Añade la logica para eliminar todas las respuestas.
+
     function BorrarRespuestas(){
     	var div = document.querySelectorAll("div[name='divaso']");
     	for (var i = div.length - 1; i >= 0; i--) {
@@ -426,10 +442,14 @@ if(isset($_POST['Enviar'])){
     	borrarButtonEnviar();
     	crea = false;
     }
+
+    // Descripció de la funció: Añade una logica que permite eliminar el boton de borrar respuestas si la situacion lo requiere.
     function BorrarButtonBorrarRespuestas(){
     	var button = document.querySelector("button[name='borrar']");
     	document.querySelector(".workin").removeChild(button);
     }
+
+    // Descripció de la funció: Permite crear el boton que nos permitira enviar los datos del formulario.
     function crearBotonEnviar(){
 		var br = document.createElement('br'); 
 		br.setAttribute('name','beerre2');
@@ -441,6 +461,8 @@ if(isset($_POST['Enviar'])){
 		form.appendChild(br); 
 		form.appendChild(buttonEnviar);
     }
+
+    // Descripció de la funció: Esta funcion nos permite, si la situacion lo requiere, borrar el boton enviar.
     function borrarButtonEnviar(){
     	var button = document.querySelector("input[name='Enviar']")
     	document.querySelector("form").removeChild(button);
@@ -450,10 +472,15 @@ if(isset($_POST['Enviar'])){
 		}
 
     }
+ 	// Descripció de la funció: Una vez el formulario de ha creado el boton se elimina para evitar problemas.
+
     function borrarCrearFormulario(){
     	var button = document.querySelector("button[name='CrearFormulario']")
     	document.querySelector(".workin").removeChild(button);
+
     }
+
+    // Descripció de la funció: Llama a una funcion para habilitar o deshabilitar el boton enviar segun el contenido de los inputs.
     function interruptorVacioRojo(){
 		var botonEnviar = document.querySelector('body > section.container > div > div > form > input[type="submit"]');
 		var interruptorEnviar = document.querySelectorAll('.boxShadowParaVacioRojo');
@@ -465,6 +492,9 @@ if(isset($_POST['Enviar'])){
 			}
 		}
 	}
+	// Descripció de la funció: Esta funcion se utiliza multiples veces. Habilita o deshabilita el boton enviar.
+	// [Parametres d'entrada]: Boolean para habilitar o deshabilitar.
+
 	function botonDisableEnable(e){
 		var botonEnviar = document.querySelector('body > section.container > div > div > form > input[type="submit"]');
 		console.log(e);
@@ -474,6 +504,8 @@ if(isset($_POST['Enviar'])){
 			botonEnviar.disabled = false;
 		}
 	}
+	// Descripció de la funció: Gestiona que los inputs sean requeridos en el formulario.
+
 	function required(){
 			var inputsYCompania = document.querySelectorAll('form > input');
 			for (var i = 0; i < inputsYCompania.length; i++) {
@@ -492,6 +524,8 @@ if(isset($_POST['Enviar'])){
 				};
 			}
 	}
+	// Descripció de la funció: Cada vez que cambia el contenido de un input se aplica un onblur para llamar a la funcion "interruptorVacioRojo". Se aplica o se elimina la clase boxShadowParaVacioRojo.
+
 	function onChanged(){
 		var childs = document.querySelector("form").children;
 		for (var i = 0; i < childs.length; i++) {
@@ -512,6 +546,8 @@ if(isset($_POST['Enviar'])){
 			}
 		}
 	}
+	// Descripció de la funció: Esta funcion sse utiliza para validar todas las fechas segun los requisitos del proyecto.
+
 	function fecha(){
 		var interruptor = true;
 		var hoy = new Date();

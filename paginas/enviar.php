@@ -1,3 +1,7 @@
+<!-- Nom del fitxer: enviar.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo permite enviar el mail y crear un usuario vacio para enlazar el link con el registro. -->
 <?php
 session_start();
 include_once ("conexion.php");

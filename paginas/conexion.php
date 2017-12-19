@@ -1,3 +1,8 @@
+<!-- Nom del fitxer: conexion.php
+Data de creació: 22/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo permite la conexion con la base de datos. -->
+
 <?php
 // datos para la conexion a mysql
 try{

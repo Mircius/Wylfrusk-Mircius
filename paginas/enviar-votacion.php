@@ -1,3 +1,8 @@
+<!-- Nom del fitxer: enviar-votacion.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo permite insertar las votaciones en la BBDD. -->
+
 <?php
 session_start();
 include_once('conexion.php');

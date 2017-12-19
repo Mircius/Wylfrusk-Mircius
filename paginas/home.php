@@ -1,3 +1,7 @@
+<!-- Nom del fitxer: home.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: El home es la pagina principal por defecto de nuestra aplicacion. -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -239,6 +243,7 @@
 		</div>
 	</section>
 	<script>
+	// Descripció de la funció: Visibilidad segun nivel de usuario.
 	function ifAdminHideThings(){
 		var x = document.querySelector('span[name=usuario]').getAttribute('admin');
 		if (x==='0'){

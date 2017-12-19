@@ -1,3 +1,7 @@
+<!-- Nom del fitxer: lista-preguntas.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo permite visualizar las consultas disponibles. Si usas un administrador permite enlazar con invitaciones y con un usuario ver las consultas invitadas y enlazar a la votacion. -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -309,6 +313,7 @@ session_start();
 		</div>
 	</section>
 	<script>
+		// Descripció de la funció: Visibilidad segun nivel de usuario.
 	function ifAdminHideThings(){
 		var x = document.querySelector('span[name=usuario]').getAttribute('admin');
 		if (x==='0'){

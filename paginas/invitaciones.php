@@ -1,3 +1,7 @@
+<!-- Nom del fitxer: invitaciones.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo nos permite enviar las invitaciones. -->
 <!DOCTYPE html>
 <html>
 <head>

@@ -1,3 +1,7 @@
+<!-- Nom del fitxer: votaciones.php
+Data de creació: 28/11/2017
+Nom del creador: Jose Gonzalez
+Descripció de la funcionalitat: Este codigo permite crear el formulario para las votaciones y enviarlo al archivo "enviar-votacion.php". -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -234,6 +238,7 @@
 		</div>
 	</section>
 	<script>
+		// Descripció de la funció: Visibilidad segun nivel de usuario.
 	function ifAdminHideThings(){
 		var x = document.querySelector('span[name=usuario]').getAttribute('admin');
 		if (x==='0'){
